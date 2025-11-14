@@ -1,0 +1,33 @@
+{
+  "OGN-001": {
+    "name": "Blazing Initiate",
+    "type_line": "Unit — Warrior",
+    "cost_energy": 1,
+    "cost_power": "Fury 1",
+    "domain_icon": "fury",
+    "might": 2,
+    "keywords": ["Deflect"],
+    "tags": ["WARRIOR"],
+    "rules_text": "Deal 2 damage to an enemy unit."
+  },
+  "OGN-032": {
+    "name": "Stormcall Adept",
+    "type_line": "Unit — Mage",
+    "cost_energy": 2,
+    "cost_power": "Light 1",
+    "domain_icon": "light",
+    "might": 3,
+    "keywords": ["Barrage"],
+    "tags": ["MAGE"],
+    "rules_text": "Draw 1 card. Deal 1 damage to an enemy unit."
+  },
+  "OGN-081": {
+    "name": "Rift Scholar",
+    "type_line": "Spell",
+    "cost_energy": 3,
+    "domain_icon": "order",
+    "keywords": ["Haste"],
+    "tags": ["SCHOLAR"],
+    "rules_text": "Heal 3 to your hero."
+  }
+}
