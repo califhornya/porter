@@ -1,6 +1,7 @@
 #
 
 ```uv run --env-file .env extract_riftbound_card.py 1762.png```
+```uv run --env-file .env extract_riftbound_card.py ./webp_files/```
 
 ## TODO
 - implement optional improvements.md  **--OK**
