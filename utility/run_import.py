@@ -11,7 +11,7 @@ from .html_reader import HtmlCardLibrary
 from .image_reader import ImageReader, ImageReaderConfig
 from .json_writer import JsonWriter
 from .normalizer import Normalizer
-from .utils import RawCardData, get_logger, normalize_keyword
+from .utils import NormalizedCard, PipelineError, RawCardData, get_logger, normalize_keyword, slugify
 
 LOGGER = get_logger(__name__)
 
@@ -66,11 +66,27 @@ class ImportPipeline:
     def run(self, image_paths: Iterable[pathlib.Path]) -> None:
         for path in image_paths:
             LOGGER.info("Processing %s", path.name)
-            raw = self.reader.read(path)
-            fallback = self._merge_html(raw)
-            normalized = self.normalizer.normalize(fallback)
-            effects = self.effect_parser.parse(normalized)
-            self.writer.write(normalized, effects)
+            raw: Optional[RawCardData] = None
+            fallback: Optional[RawCardData] = None
+            normalized: Optional[NormalizedCard] = None
+            effects: Optional[list[Dict[str, object]]] = None
+            try:
+                raw = self.reader.read(path)
+                fallback = self._merge_html(raw)
+                normalized = self.normalizer.normalize(fallback)
+                effects = self.effect_parser.parse(normalized)
+                self.writer.write(normalized, effects)
+            except PipelineError as error:
+                LOGGER.warning("Pipeline error while processing %s: %s", path.name, error)
+                self._dump_partial_output(path, error, raw, fallback, normalized, effects)
+            except Exception as error:  # pragma: no cover - defensive programming
+                LOGGER.warning(
+                    "Unexpected error while processing %s: %s",
+                    path.name,
+                    error,
+                    exc_info=True,
+                )
+                self._dump_partial_output(path, error, raw, fallback, normalized, effects)
 
     def _merge_html(self, raw: RawCardData) -> RawCardData:
         if not self.html_library or not raw.name:
@@ -117,6 +133,59 @@ class ImportPipeline:
             merged.rules_text = str(payload["rules_text"])
         return merged
 
+def _dump_partial_output(
+        self,
+        source: pathlib.Path,
+        error: Exception,
+        raw: Optional[RawCardData],
+        merged: Optional[RawCardData],
+        normalized: Optional[NormalizedCard],
+        effects: Optional[list[Dict[str, object]]],
+    ) -> None:
+        slug_source: Optional[str] = None
+        if normalized and normalized.name:
+            slug_source = normalized.name
+        elif merged and merged.name:
+            slug_source = merged.name
+        elif raw and raw.name:
+            slug_source = raw.name
+        else:
+            slug_source = source.stem
+
+        filename = slugify(slug_source)
+        if not filename:
+            filename = source.stem or "card"
+
+        output_path = self.writer.output_dir / f"{filename}.json"
+        payload: Dict[str, object] = {
+            "error": str(error),
+            "source_image": str(source),
+            "partial": True,
+        }
+
+        if raw:
+            payload["raw_card_data"] = raw.to_dict()
+        if merged and merged is not raw:
+            payload["merged_card_data"] = merged.to_dict()
+        if normalized:
+            normalized_payload = normalized.to_card_spec()
+            if normalized.raw_rules_text is not None:
+                normalized_payload["raw_rules_text"] = normalized.raw_rules_text
+            payload["normalized_card"] = normalized_payload
+        if effects is not None:
+            payload["effects"] = effects
+
+        try:
+            with output_path.open("w", encoding="utf8") as handle:
+                json.dump(payload, handle, indent=2, ensure_ascii=False)
+                handle.write("\n")
+            LOGGER.warning(
+                "Wrote partial output for %s to %s", source.name, output_path
+            )
+        except Exception as write_error:  # pragma: no cover - logging only
+            LOGGER.error(
+                "Failed to write partial output for %s: %s", source.name, write_error
+            )
 
 def run_cli(argv: Optional[Iterable[str]] = None) -> None:
     parser = build_arg_parser()

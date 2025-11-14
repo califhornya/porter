@@ -1,11 +1,13 @@
-# README_DEV.md  
+# READ_ME.md
 ### Riftbound Card JSON Generator Utility  
 ### Standalone Script — Developer Specification
 
-This document defines the **full technical specification** for a standalone Python utility that converts **Riftbound card images (.webp)** into **normalized CardSpec JSON files** compatible with the rbsim simulator.
+This document defines the full technical specification for a standalone Python utility that converts **Riftbound card images (.webp)** into **normalized CardSpec JSON files** compatible with the rbsim simulator.
 
 This tool does NOT interact with rbsim directly.  
 It outputs JSON files that rbsim can load later via its existing `load_cards_json` function.
+
+The ONLY input to this utility is a collection of `.webp` card images.
 
 ---
 
@@ -37,25 +39,25 @@ The utility must not rely on rbsim, only match its schema.
 
 Command-line example:
 
-```
+```bash
 python run_import.py --input ./input_images/ --output ./cards_json/
 ```
 
 Parameters:
 
 - `--input` : Directory containing `.webp` files.  
-- `--output` : Directory where JSON files will be created.  
-- `--html` (optional): Path to the downloaded HTML card library file used as fallback data.
+- `--output` : Directory where JSON files will be created.
+
+No HTML or other auxiliary inputs are used.
 
 ---
 
 # 3. Directory Structure (Suggested)
 
-```
+```text
 utility/
     run_import.py
     image_reader.py
-    html_reader.py
     normalizer.py
     effect_parser.py
     keyword_schemas.py
@@ -66,7 +68,7 @@ utility/
     /cards_json/
 ```
 
-GPT-Codex may reorganize as long as functionality is preserved.
+Codex may reorganize as long as functionality is preserved.
 
 ---
 
@@ -78,11 +80,7 @@ For each `.webp` file:
    - Load and process the image using Vision OCR.
    - Extract structured raw fields into a `RawCardData` dictionary.
 
-2. **HTMLReader (optional fallback)**  
-   - Look up the same card by name.  
-   - Merge/override missing or ambiguous OCR fields.
-
-3. **Normalizer**  
+2. **Normalizer**  
    - Convert `RawCardData` into normalized fields:
      - name  
      - category  
@@ -95,10 +93,10 @@ For each `.webp` file:
      - tags  
      - rules_text  
 
-4. **EffectParser**  
+3. **EffectParser**  
    - Convert rules text + keywords into a list of effect dictionaries following rbsim format.
 
-5. **JSONWriter**  
+4. **JSONWriter**  
    - Output `{sanitized_name}.json` into the output directory.
 
 ---
@@ -125,18 +123,18 @@ Responsibilities:
 
 Output a structure:
 
-```
+```python
 RawCardData = {
     "name": str,
     "type_line": str,
-    "cost_energy": int or None,
-    "cost_power_icon": str or None,
-    "might": int or None,
-    "damage": int or None,
-    "domain_icon": str or None,
-    "keywords_raw": [str],
+    "cost_energy": int | None,
+    "cost_power_icon": str | None,
+    "might": int | None,
+    "damage": int | None,
+    "domain_icon": str | None,
+    "keywords_raw": list[str],
     "rules_text_raw": str,
-    "tags_raw": [str]
+    "tags_raw": list[str]
 }
 ```
 
@@ -144,28 +142,11 @@ The module does not normalize or interpret semantics.
 
 ---
 
-## 5.2 html_reader.py (optional)
+## 5.2 domain_icons.py
 
-If HTML file is provided:
-- Parse card entries from the HTML page.  
-- Extract for each card:
-  - domain  
-  - type  
-  - rules text  
-  - subtype  
-  - keyword list  
-- Matches cards by name (case-insensitive).  
-- Returns a dictionary keyed by card name.
+Provide static mapping from icon identifiers (as produced by Vision prompts) to Riftbound domains:
 
-Normalizer may pass RawCardData to this module to fill missing fields.
-
----
-
-## 5.3 domain_icons.py
-
-Provide static mapping:
-
-```
+```python
 ICON_TO_DOMAIN = {
     "red_icon": "FURY",
     "blue_icon": "CALM",
@@ -176,17 +157,17 @@ ICON_TO_DOMAIN = {
 }
 ```
 
-Vision must produce an icon identifier consistent enough to match keys in this dictionary.
+Vision prompts must be designed so that the model returns deterministic identifiers that can be matched in this dictionary (for example: `"red_icon"`, `"blue_icon"`, etc.).
 
 ---
 
-## 5.4 keyword_schemas.py
+## 5.3 keyword_schemas.py
 
-Define the universe of Riftbound keyword abilities.
+Define the universe of Riftbound keyword abilities and how they map to effect records.
 
 Example:
 
-```
+```python
 KEYWORD_SCHEMAS = {
     "DEFLECT": {
         "effect": "deflect",
@@ -213,61 +194,65 @@ KEYWORD_SCHEMAS = {
 
 This file defines how to interpret keywords during normalization and effect parsing.
 
-Codex must fill this list by examining multiple examples and following card standards.
+Codex may extend this list by examining multiple examples and following card standards.
 
 ---
 
-## 5.5 normalizer.py
+## 5.4 normalizer.py
 
 Takes:
 
 - `RawCardData`
-- Optional HTML fallback data  
 - Domain/icon mappings  
 - Keyword schemas  
 
 Responsibilities:
 
-1. Clean name.  
-2. Parse type line:
+1. Clean and normalize `name`.  
+2. Parse `type_line`:
    - Determine `"category"` (UNIT, SPELL, GEAR, RUNE, LEGEND, BATTLEFIELD).  
    - Parse subtype(s) → tags.  
-3. Normalize energy, power, might, damage.  
-4. Determine domain from icon, fallback HTML, or rules text.  
-5. Normalize keywords.  
-6. Normalize rules text.  
-7. Construct a **NormalizedCard**:
+3. Normalize:
+   - `cost_energy`  
+   - `cost_power` (from power icons and/or text near cost)  
+   - `might`  
+   - `damage`  
+4. Determine `domain` from `domain_icon`.  
+5. Normalize keyword list (`keywords_raw` → `keywords`).  
+6. Normalize `rules_text_raw` → `rules_text`.  
+7. Construct a `NormalizedCard`:
 
-```
+```python
 NormalizedCard = {
     "name": str,
     "category": str,
-    "domain": str or None,
+    "domain": str | None,
     "cost_energy": int,
-    "cost_power": str or None,
-    "might": int or None,
-    "damage": int or None,
-    "keywords": [...],
-    "tags": [...],
+    "cost_power": str | None,
+    "might": int | None,
+    "damage": int | None,
+    "keywords": list[str],
+    "tags": list[str],
     "rules_text": str
 }
 ```
 
-This structure is consumed by EffectParser.
+This structure is consumed by `effect_parser.py`.
 
 ---
 
-## 5.6 effect_parser.py
+## 5.5 effect_parser.py
 
 Responsible for translating normalized fields into a list of **effect dictionaries** matching rbsim’s `EffectSpec` format.
 
 Rules:
+
 - Use `keyword_schemas.py` to detect which keywords automatically produce effects.  
-- Use simple pattern search in `rules_text` to detect numeric parameters.  
+- Use simple pattern search in `rules_text` to detect numeric parameters where required (for instance, Deflect amounts, damage values, buff amounts).  
 - Do not attempt deep natural-language interpretation.  
 - Always return a list (possibly empty):
 
-```
+```python
 effects = [
     {"effect": "deflect", "amount": 1, "domain": "FURY"},
     {"effect": "deal_damage", "amount": 2, "target": "opponent"}
@@ -275,31 +260,30 @@ effects = [
 ```
 
 If unknown behaviors appear:
-- Log warning.  
-- Add `"raw_rules_text"` to output JSON.
+- Log a warning.  
+- Add `"raw_rules_text"` to the output JSON so a human can inspect later.
 
 ---
 
-## 5.7 json_writer.py
+## 5.6 json_writer.py
 
 Accepts a fully formed `CardSpec` dictionary and writes:
 
-```
+```text
 {output_dir}/{sanitized_name}.json
 ```
 
 Sanitization rules:
-- Replace spaces with underscores or leave spaces if supported.  
-- Remove forbidden filesystem characters.  
-- Preserve case (recommended).
+- Replace or strip characters that are invalid in file names.  
+- Prefer preserving case and spaces where the filesystem supports it, but avoid problematic characters like `:`, `/`, `\`, `?`, `*`, etc.
 
 ---
 
 # 6. JSON Format Requirements
 
-Each output file must follow this exact structure:
+Each output file must follow this structure:
 
-```
+```json
 {
   "name": "Pouty Poro",
   "category": "UNIT",
@@ -316,7 +300,11 @@ Each output file must follow this exact structure:
 }
 ```
 
-Fields that do not apply should be `null` or omitted only if absolutely necessary.
+Notes:
+
+- Fields that do not apply should be `null` (or omitted only if absolutely necessary and documented clearly in the code).  
+- `effects` is always present as a list (may be empty).  
+- The JSON should be pretty-printed with consistent indentation (e.g. 2 or 4 spaces).
 
 ---
 
@@ -324,12 +312,17 @@ Fields that do not apply should be `null` or omitted only if absolutely necessar
 
 For each card:
 
-- If required data is missing:
-  - Show a warning  
-  - Write JSON with `"raw_rules_text"` included  
-  - Continue processing other cards  
+- If required data is missing or ambiguous:
+  - Log a warning with the card filename and nature of the issue.  
+  - Still write a JSON file whenever possible.  
+  - Include `"raw_rules_text"` and optionally `"raw_data"` fields to aid manual debugging.  
+- The tool must not stop on OCR or parsing errors for a single card; it should continue processing the rest.
 
-The tool must not stop on OCR errors.
+At the end, print a short summary, e.g.:
+
+- Total cards processed  
+- Successful JSONs  
+- Cards with warnings/errors  
 
 ---
 
@@ -337,11 +330,11 @@ The tool must not stop on OCR errors.
 
 The utility must NOT:
 
-- Implement card mechanics  
-- Validate gameplay  
-- Modify rbsim  
-- Connect to a database  
-- Perform deep NLP interpretation of rules text  
+- Implement or simulate card mechanics  
+- Validate gameplay or rules interactions  
+- Modify or import rbsim as a dependency  
+- Connect to any database  
+- Perform deep or probabilistic NLP interpretations of rules text  
 
 It is purely a data extraction + normalization + JSON generation tool.
 
@@ -349,12 +342,20 @@ It is purely a data extraction + normalization + JSON generation tool.
 
 # 9. Testing Structure
 
-Codex should include a self-test script that:
+Codex should include a simple self-test mode or script that:
 
-- Processes 1–3 example images  
-- Prints intermediate `RawCardData`, `NormalizedCard`, and final JSON  
-- Confirms all required fields exist  
-- Runs without rbsim installed  
+- Processes 1–3 example `.webp` images placed in `/input_images/`.  
+- Prints intermediate `RawCardData`, `NormalizedCard`, and final JSON for at least one sample card.  
+- Confirms all required fields are present before writing JSON.  
+- Runs without rbsim installed.
+
+Example:
+
+```bash
+python run_import.py --input ./input_images/ --output ./cards_json/ --debug-sample 1
+```
+
+`--debug-sample` is optional but recommended.
 
 ---
 
@@ -362,11 +363,14 @@ Codex should include a self-test script that:
 
 Codex must deliver:
 
-1. Fully functional script directory  
-2. All modules described above  
-3. Clear instructions in `run_import.py`  
-4. Fully working OCR → Normalize → JSON pipeline  
-5. Ready to use with:
-   ```
-   python run_import.py --input ./input_images/ --output ./cards_json/
-   ```
+1. A fully functional script directory.  
+2. All modules described above (or equivalents with clear responsibilities).  
+3. Clear instructions embedded in `run_import.py` (help text, `--help`).  
+4. A working OCR → normalize → JSON pipeline based solely on `.webp` files as input.  
+5. Ready-to-use CLI:
+
+```bash
+python run_import.py --input ./input_images/ --output ./cards_json/
+```
+
+End of file.
