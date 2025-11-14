@@ -1,0 +1,39 @@
+{
+    "name": "Blade Dancer",
+    "type": "LEGEND",
+    "domain": null,
+    "cost": {
+        "energy": 0,
+        "power": null
+    },
+    "stats": {
+        "might": null,
+        "damage": null,
+        "armor": null
+    },
+    "keywords": [],
+    "tags": [
+        "IRELIA"
+    ],
+    "rules_text": "When you choose a friendly unit, you may exhaust me and pay MIND to ready it.\nWhen you conquer, you may pay 1 to ready me.",
+    "effects": [
+        {
+            "effect": "ready_unit",
+            "params": {
+                "target": "friendly_unit",
+                "cost": {
+                    "MIND": 1
+                }
+            }
+        },
+        {
+            "effect": "ready_self",
+            "params": {
+                "cost_energy": 1
+            }
+        }
+    ],
+    "flavor": null,
+    "artist": null,
+    "card_id": null
+}
