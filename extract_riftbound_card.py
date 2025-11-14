@@ -4,24 +4,7 @@ Riftbound Card Extractor (Vision LLM, standalone)
 
 Usage:
     python extract_riftbound_card.py path/to/card.webp
-    python extract_riftbound_card.py path/to/card.webp --out-dir output --model gpt-4o
-
-Requirements:
-    - Python 3.9+
-    - pip install:
-        openai
-        pillow
-        pydantic
-
-Env:
-    - OPENAI_API_KEY must be set in your environment.
-
-This script:
-    - Loads a .webp image of a Riftbound card
-    - Sends it to a vision model (default: gpt-4o)
-    - Asks for a strict JSON card description in the canonical schema
-    - Validates it with Pydantic
-    - Writes {clean-name}.json into the chosen output directory
+    python extract_riftbound_card.py path/to/folder/ --out-dir output --model gpt-4o
 """
 
 import argparse
@@ -36,16 +19,13 @@ from pydantic import BaseModel, Field, ValidationError
 from PIL import Image
 
 
-# =========================
-# JSON SCHEMA (CANONICAL)
-# =========================
+# ============================================================
+# Pydantic Models (Canonical JSON Schema)
+# ============================================================
 
 class CardCost(BaseModel):
     energy: int = Field(..., ge=0)
-    power: Optional[str] = Field(
-        None,
-        description="Domain string or null: FURY|CALM|MIND|BODY|CHAOS|ORDER|null",
-    )
+    power: Optional[str] = None
 
 
 class CardStats(BaseModel):
@@ -55,20 +35,14 @@ class CardStats(BaseModel):
 
 
 class CardEffect(BaseModel):
-    effect: str = Field(..., description="Machine-readable effect identifier")
+    effect: str
     params: Dict[str, Any] = Field(default_factory=dict)
 
 
 class CardData(BaseModel):
     name: str
-    type: str = Field(
-        ...,
-        description="UNIT | SPELL | GEAR | RUNE | LEGEND | BATTLEFIELD",
-    )
-    domain: Optional[str] = Field(
-        None,
-        description="FURY | CALM | MIND | BODY | CHAOS | ORDER | null",
-    )
+    type: str
+    domain: Optional[str] = None
 
     cost: CardCost
     stats: CardStats
@@ -77,7 +51,6 @@ class CardData(BaseModel):
     tags: List[str] = Field(default_factory=list)
 
     rules_text: str
-
     effects: List[CardEffect] = Field(default_factory=list)
 
     flavor: Optional[str] = None
@@ -85,18 +58,13 @@ class CardData(BaseModel):
     card_id: Optional[str] = None
 
 
-# =========================
-# IMAGE HANDLING
-# =========================
+# ============================================================
+# Utility: Convert Image → Data URL for OpenAI
+# ============================================================
 
 def image_to_data_url(image_path: Path) -> str:
-    """
-    Load the image and return a data URL suitable for the Responses API.
-    Converts to PNG in-memory for maximum compatibility.
-    """
     with Image.open(image_path) as img:
         img = img.convert("RGBA")
-        # Encode as PNG bytes
         from io import BytesIO
         buf = BytesIO()
         img.save(buf, format="PNG")
@@ -106,9 +74,29 @@ def image_to_data_url(image_path: Path) -> str:
     return f"data:image/png;base64,{b64}"
 
 
-# =========================
-# OPENAI / VISION CALL
-# =========================
+# ============================================================
+# Output Sanitization: remove markdown fences
+# ============================================================
+
+def strip_markdown_fences(text: str) -> str:
+    text = text.strip()
+
+    # Remove opening ``` or ```json
+    if text.startswith("```"):
+        first_newline = text.find("\n")
+        if first_newline != -1:
+            text = text[first_newline + 1:].strip()
+
+    # Remove trailing ```
+    if text.endswith("```"):
+        text = text[:-3].strip()
+
+    return text
+
+
+# ============================================================
+# SYSTEM PROMPT (Strengthened)
+# ============================================================
 
 SYSTEM_PROMPT = """You are a strict Riftbound card data extractor.
 
@@ -116,121 +104,41 @@ You receive an image of a single Riftbound card. Your job:
 - Read the card as accurately as possible.
 - Interpret its mechanics.
 - Output ONLY a single JSON object.
-- Do NOT include any explanation, markdown, or extra text.
+- Do NOT include explanation, markdown, comments, or backticks.
+- Never wrap the JSON in code fences such as ``` or ```json.
+- Output raw JSON only.
 
-JSON schema (all keys required unless marked optional):
+JSON schema:
 
 {
   "name": "string",
   "type": "UNIT | SPELL | GEAR | RUNE | LEGEND | BATTLEFIELD",
   "domain": "FURY | CALM | MIND | BODY | CHAOS | ORDER | null",
 
-  "cost": {
-    "energy": integer,
-    "power": "FURY | CALM | MIND | BODY | CHAOS | ORDER | null"
-  },
+  "cost": { "energy": integer, "power": domain-string-or-null },
+  "stats": { "might": int?, "damage": int?, "armor": int? },
 
-  "stats": {
-    "might": integer or null,
-    "damage": integer or null,
-    "armor": integer or null
-  },
+  "keywords": [...],
+  "tags": [...],
 
-  "keywords": [ "string", ... ],
-  "tags": [ "string", ... ],
+  "rules_text": "string",
+  "effects": [ { "effect": "string", "params": {...} } ],
 
-  "rules_text": "full human-readable rules text exactly as printed (or oracle-style if needed)",
-
-  "effects": [
-    {
-      "effect": "string",       // short machine name like "deal_damage", "draw_cards", "buff_might", "deflect_tax"
-      "params": { ... }         // key-value parameters (numbers, strings, booleans, small arrays)
-    }
-  ],
-
-  "flavor": "optional string or null",
-  "artist": "optional string or null",
-  "card_id": "optional string or null"
+  "flavor": string|null,
+  "artist": string|null,
+  "card_id": string|null
 }
 
-Guidelines:
-
-- If a field does NOT exist on the card, set it to null or empty where appropriate:
-  - domain: null (for domainless cards, like some battlefields)
-  - stats.might/damage/armor: null if not applicable
-  - flavor/artist/card_id: null if unknown
-  - keywords/tags/effects: [] if none are explicitly present.
-
-- type:
-  - Units are creatures that contest battlefields.
-  - Spells are one-shot effects.
-  - Gear is equipment / attachments.
-  - Runes are special resource/enabler cards.
-  - Legends are unique leader/hero cards.
-  - Battlefields are locations used for scoring.
-
-- domain:
-  - Map any domain symbol or domain text to one of:
-    FURY, CALM, MIND, BODY, CHAOS, ORDER.
-  - If the card clearly has no domain, use null.
-
-- cost.energy:
-  - The numeric energy cost printed on the card.
-  - If no numeric cost is printed, use 0.
-
-- cost.power:
-  - If the card requires power of a specific domain, set that domain string.
-  - Otherwise, null.
-
-- stats:
-  - Units and Legends typically have might; read it from the card.
-  - Some spells might have a fixed damage number; fill stats.damage if explicitly numeric.
-  - If the card has armor/defense/armor-like stat, put it into stats.armor.
-  - If a stat does not exist, use null, not 0.
-
-- keywords:
-  - Include mechanical keywords like GUARD, EVASIVE, DEFLECT, ENTRENCH, ACCELERATE, etc.
-  - Uppercase or Title Case; be consistent across cards.
-
-- tags:
-  - Include tribes, classes, special labels, or legend tags if readable.
-  - If unsure, you may leave tags empty.
-
-- rules_text:
-  - Include the full rules text, line breaks allowed.
-  - Preserve the meaning even if you must correct small OCR errors.
-
-- effects:
-  - Interpret rules_text into structured machine-readable effects.
-  - Choose concise effect names:
-      - "deal_damage"
-      - "buff_might"
-      - "draw_cards"
-      - "discard_cards"
-      - "deflect_tax"
-      - "rune_gain"
-      - etc.
-  - Put numeric quantities and targets into params, for example:
-      { "effect": "deal_damage", "params": { "amount": 2, "target": "enemy_unit" } }
-
-Output rules:
-- Output JSON ONLY.
-- NO comments.
-- NO markdown.
-- NO backticks.
-- NO additional keys.
-- Ensure the JSON is syntactically valid and parsable.
+Rules:
+- If a field does not exist, output null or [] as appropriate.
+- Output VALID JSON ONLY.
 """
 
+# ============================================================
+# OpenAI Extraction Logic
+# ============================================================
 
-def extract_card_json(
-    client: OpenAI,
-    image_path: Path,
-    model: str = "gpt-4o",
-) -> Dict[str, Any]:
-    """
-    Send the image to the OpenAI Responses API and return parsed JSON as dict.
-    """
+def extract_card_json(client: OpenAI, image_path: Path, model: str) -> Dict[str, Any]:
     data_url = image_to_data_url(image_path)
 
     response = client.responses.create(
@@ -238,32 +146,22 @@ def extract_card_json(
         input=[
             {
                 "role": "system",
-                "content": [
-                    {"type": "input_text", "text": SYSTEM_PROMPT},
-                ],
+                "content": [{"type": "input_text", "text": SYSTEM_PROMPT}],
             },
             {
                 "role": "user",
                 "content": [
-                    {
-                        "type": "input_text",
-                        "text": "Extract the card data as JSON according to the schema.",
-                    },
-                    {
-                        "type": "input_image",
-                        "image_url": data_url,
-                    },
+                    {"type": "input_text", "text": "Extract the card data as JSON."},
+                    {"type": "input_image", "image_url": data_url},
                 ],
             },
         ],
         max_output_tokens=2048,
     )
 
-    # The Responses API returns a structured object. We need the text output part.
-    # This assumes the model replies with a single text output containing only JSON.
+    # Locate first message.output_text
     try:
         output = response.output
-        # Find the first text item in the output
         json_text = None
         for item in output:
             if item.type == "message":
@@ -274,95 +172,110 @@ def extract_card_json(
             if json_text is not None:
                 break
     except Exception:
-        # Fallback: older-style access or future changes
-        # Try to stringify whole response and fail clearly
         raise RuntimeError("Unexpected response structure from OpenAI Responses API.")
 
     if not json_text:
-        raise RuntimeError("No text content returned by the model.")
+        raise RuntimeError("Model returned no text.")
 
-    # The model should have returned pure JSON
+    sanitized = strip_markdown_fences(json_text)
+
     try:
-        data = json.loads(json_text)
+        data = json.loads(sanitized)
     except json.JSONDecodeError as e:
-        raise RuntimeError(f"Model output was not valid JSON: {e}\nOutput:\n{json_text}")
+        raise RuntimeError(
+            f"Model output was not valid JSON: {e}\nRaw output was:\n{json_text}"
+        )
 
     return data
 
 
-# =========================
-# MAIN / CLI
-# =========================
+# ============================================================
+# Filename Sanitizer
+# ============================================================
 
 def clean_filename(name: str) -> str:
-    """Make a filesystem-safe filename from the card name."""
     safe = "".join(c for c in name if c.isalnum() or c in (" ", "-", "_"))
     safe = "_".join(safe.strip().split())
     return safe or "card"
 
 
+# ============================================================
+# MAIN / CLI  (Batch Folder Support)
+# ============================================================
+
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Extract Riftbound card JSON from a .webp image using GPT-Vision.")
-    parser.add_argument("image", type=str, help="Path to the card image (.webp, .png, .jpg, etc.)")
+    parser = argparse.ArgumentParser(description="Extract Riftbound card JSON from image(s).")
+    parser.add_argument("path", type=str, help="Path to an image or a folder.")
     parser.add_argument(
         "--out-dir",
         type=str,
         default="output",
-        help="Directory where the JSON file will be written (default: ./output)",
+        help="Directory where JSON files will be stored.",
     )
     parser.add_argument(
         "--model",
         type=str,
         default="gpt-4o",
-        help="OpenAI model name (default: gpt-4o)",
+        help="OpenAI model to use.",
     )
     parser.add_argument(
         "--print",
         action="store_true",
-        help="Also print the validated JSON to stdout.",
+        help="Print JSON to stdout after writing.",
     )
 
     args = parser.parse_args()
 
-    image_path = Path(args.image).expanduser().resolve()
-    if not image_path.exists():
-        raise SystemExit(f"Image not found: {image_path}")
+    target_path = Path(args.path).expanduser().resolve()
+    if not target_path.exists():
+        raise SystemExit(f"Path not found: {target_path}")
+
+    SUPPORTED = [".png", ".webp", ".jpg", ".jpeg"]
+
+    if target_path.is_dir():
+        image_files = [p for p in target_path.iterdir() if p.suffix.lower() in SUPPORTED]
+        if not image_files:
+            raise SystemExit("No supported image files found in directory.")
+        image_files.sort()
+    else:
+        if target_path.suffix.lower() not in SUPPORTED:
+            raise SystemExit(f"Unsupported file type: {target_path.suffix}")
+        image_files = [target_path]
 
     api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
-        raise SystemExit("OPENAI_API_KEY environment variable is not set.")
+        raise SystemExit("OPENAI_API_KEY is not set.")
 
     client = OpenAI(api_key=api_key)
-
-    print(f"Reading card from image: {image_path}")
-    print(f"Using model: {args.model}")
-
-    raw_data = extract_card_json(client, image_path, model=args.model)
-
-    # Validate against our canonical schema
-    try:
-        card = CardData.model_validate(raw_data)
-    except ValidationError as e:
-        print("Model output failed validation against CardData schema.")
-        print(e)
-        print("Raw data returned by the model:")
-        print(json.dumps(raw_data, indent=2, ensure_ascii=False))
-        raise SystemExit(1)
 
     out_dir = Path(args.out_dir).expanduser().resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    filename = clean_filename(card.name) + ".json"
-    out_path = out_dir / filename
+    for image_path in image_files:
+        print(f"\nProcessing: {image_path}")
+        print(f"Model: {args.model}")
 
-    with out_path.open("w", encoding="utf-8") as f:
-        json.dump(card.model_dump(), f, indent=2, ensure_ascii=False)
+        raw_data = extract_card_json(client, image_path, model=args.model)
 
-    print(f"Saved card JSON to: {out_path}")
+        try:
+            card = CardData.model_validate(raw_data)
+        except ValidationError as e:
+            print("Validation error:")
+            print(e)
+            print("Raw model output:")
+            print(json.dumps(raw_data, indent=2, ensure_ascii=False))
+            continue
 
-    if args.print:
-        print()
-        print(json.dumps(card.model_dump(), indent=2, ensure_ascii=False))
+        filename = clean_filename(card.name) + ".json"
+        out_path = out_dir / filename
+
+        with out_path.open("w", encoding="utf-8") as f:
+            json.dump(card.model_dump(), f, indent=2, ensure_ascii=False)
+
+        print(f"Saved: {out_path}")
+
+        if args.print:
+            print(json.dumps(card.model_dump(), indent=2, ensure_ascii=False))
 
 
 if __name__ == "__main__":
