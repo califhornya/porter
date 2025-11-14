@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "name": "Tryndamere",
+  "type": "UNIT",
+  "domain": null,
+  "cost": {
+    "energy": 7,
+    "power": null
+  },
+  "stats": {
+    "might": 8,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "CHAMPION",
+    "BARBARIAN"
+  ],
+  "rules_text": "When I conquer after an attack, if you assigned 5 or more excess damage to enemy units, you score 1 point.",
+  "effects": [],
+  "flavor": "You never stood a chance.",
+  "artist": "Six More Vodka",
+  "card_id": "OGN034/298"
+}

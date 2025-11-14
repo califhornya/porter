@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "Scrapyard Champion",
+  "type": "UNIT",
+  "domain": null,
+  "cost": {
+    "energy": 5,
+    "power": "FURY"
+  },
+  "stats": {
+    "might": 5,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "LEGION"
+  ],
+  "tags": [
+    "BANDLE CITY",
+    "MECH"
+  ],
+  "rules_text": "LEGION — When you play me, discard 2, then draw 2. (Get the effect if you’ve played another card this turn.)",
+  "effects": [
+    {
+      "effect": "legion",
+      "params": {
+        "action": "discard",
+        "amount": 2
+      }
+    },
+    {
+      "effect": "legion",
+      "params": {
+        "action": "draw",
+        "amount": 2
+      }
+    }
+  ],
+  "flavor": "“Last one standing” is a bit subjective.",
+  "artist": "Envar Studio",
+  "card_id": "OGN 020/298"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "name": "Zhonya’s Hourglass",
+  "type": "GEAR",
+  "domain": null,
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "HIDDEN"
+  ],
+  "tags": [],
+  "rules_text": "Hide now for {power} to react with later for {energy_cost}. The next time a friendly unit would die, kill this instead. Recall that unit exhausted. (Send it to base. This isn’t a move.)",
+  "effects": [],
+  "flavor": null,
+  "artist": "Kudos Productions",
+  "card_id": "OGN · 077/298"
+}

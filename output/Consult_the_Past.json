@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "name": "Consult the Past",
+  "type": "SPELL",
+  "domain": null,
+  "cost": {
+    "energy": 4,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "HIDDEN",
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "Draw 2.",
+  "effects": [],
+  "flavor": null,
+  "artist": "Kudos Productions",
+  "card_id": "OGN · 083/298"
+}

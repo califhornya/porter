@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "name": "Lecturing Yordle",
+  "type": "UNIT",
+  "domain": null,
+  "cost": {
+    "energy": 3,
+    "power": null
+  },
+  "stats": {
+    "might": 3,
+    "damage": 2,
+    "armor": null
+  },
+  "keywords": [
+    "TANK"
+  ],
+  "tags": [
+    "BANDLE CITY",
+    "YORDLE"
+  ],
+  "rules_text": "When you play me, draw 1.",
+  "effects": [
+    {
+      "effect": "draw",
+      "params": {
+        "amount": 1
+      }
+    }
+  ],
+  "flavor": "\"... poisonous, but I didn't know that at the time. You see ...\"",
+  "artist": "Kudos Productions",
+  "card_id": "OGN087/298"
+}

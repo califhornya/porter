@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "name": "Eclipse Herald",
+  "type": "UNIT",
+  "domain": "BODY",
+  "cost": {
+    "energy": 7,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "MOUNT TARGON",
+    "BIRD"
+  ],
+  "tags": [],
+  "rules_text": "When you stun an enemy unit, ready me and give me +1 armor this turn.",
+  "effects": [],
+  "flavor": "An omen as terrifying as that which follows.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 059/298"
+}

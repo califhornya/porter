@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "name": "Falling Comet",
+  "type": "SPELL",
+  "domain": null,
+  "cost": {
+    "energy": 5,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACTION"
+  ],
+  "tags": [],
+  "rules_text": "(Play on your turn or in showdowns.)\nDeal 6 to a unit at a battlefield.",
+  "effects": [
+    {
+      "effect": "deal damage",
+      "params": {
+        "amount": 6,
+        "target": "unit at a battlefield"
+      }
+    }
+  ],
+  "flavor": "Just an everyday celestial event.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 085/298"
+}

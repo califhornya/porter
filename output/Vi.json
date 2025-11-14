@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "name": "Vi",
+  "type": "UNIT",
+  "domain": "FURY",
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": 3,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "CHAMPION"
+  ],
+  "tags": [
+    "DESTRUCTIVE",
+    "GANKING",
+    "VI",
+    "PILTOVER"
+  ],
+  "rules_text": "(I can move from battlefield to battlefield.) Recycle 1 from your trash: Give me +1 might this turn.",
+  "effects": [],
+  "flavor": "Punch first. Ask questions while punching.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 036/298"
+}

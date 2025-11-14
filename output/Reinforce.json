@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "name": "Reinforce",
+  "type": "SPELL",
+  "domain": null,
+  "cost": {
+    "energy": 5,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "Look at the top 5 cards of your Main Deck. You may play a unit from among them. Its Energy cost is reduced by 5. Then recycle the remaining cards.",
+  "effects": [],
+  "flavor": null,
+  "artist": "Kudos Productions",
+  "card_id": "OGN 062/298"
+}

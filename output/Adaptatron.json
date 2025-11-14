@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "name": "Adaptatron",
+  "type": "UNIT",
+  "domain": null,
+  "cost": {
+    "energy": 4,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": 3
+  },
+  "keywords": [
+    "PILTOVER",
+    "MECH"
+  ],
+  "tags": [],
+  "rules_text": "When I conquer, you may kill a gear. If you do, buff me. (If I don't have a buff, I get a +1 armor buff.)",
+  "effects": [],
+  "flavor": "There's a scrap for that.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN · 056/298"
+}

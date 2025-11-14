@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "name": "Solari Shieldbearer",
+  "type": "UNIT",
+  "domain": null,
+  "cost": {
+    "energy": 3,
+    "power": null
+  },
+  "stats": {
+    "might": 3,
+    "damage": null,
+    "armor": 2
+  },
+  "keywords": [],
+  "tags": [
+    "MOUNT TARGON"
+  ],
+  "rules_text": "When you play me, stun a unit. (It doesn't deal combat damage this turn.)",
+  "effects": [
+    {
+      "effect": "stun",
+      "params": {
+        "target": "a unit"
+      }
+    }
+  ],
+  "flavor": "\"Discipline is our shield.\"",
+  "artist": "Kudos Productions",
+  "card_id": "OGN051/298"
+}

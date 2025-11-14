@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "Leona",
+  "type": "UNIT",
+  "domain": "FURY",
+  "cost": {
+    "energy": 6,
+    "power": "FURY"
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ZEALOT"
+  ],
+  "tags": [
+    "CHAMPION UNIT",
+    "LEONA",
+    "MOUNT TARGON"
+  ],
+  "rules_text": "If an opponent’s score is within 3 points of the Victory Score, I enter ready. Stunned enemy units here have -8 Fury, to a minimum of 1 Fury.",
+  "effects": [],
+  "flavor": "Feel the sun’s glory!",
+  "artist": "Six More Vodka",
+  "card_id": "OGN079/298"
+}

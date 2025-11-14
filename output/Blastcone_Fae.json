@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "name": "Blastcone Fae",
+  "type": "UNIT",
+  "domain": null,
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": 2,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "HIDDEN"
+  ],
+  "tags": [
+    "BANDLE CITY",
+    "FAE"
+  ],
+  "rules_text": "When you play me, give a unit -2 this turn, to a minimum of 1.",
+  "effects": [
+    {
+      "effect": "give a unit temporary debuff",
+      "params": {
+        "amount": -2,
+        "minimum": 1
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Caravan Studio",
+  "card_id": "OGN097298"
+}

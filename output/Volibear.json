@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "Volibear",
+  "type": "UNIT",
+  "domain": "FURY",
+  "cost": {
+    "energy": 10,
+    "power": null
+  },
+  "stats": {
+    "might": 9,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "DEFLECT 2"
+  ],
+  "tags": [
+    "CHAMPION UNIT",
+    "FRELJORD"
+  ],
+  "rules_text": "DEFLECT 2 (Opponents must pay 2 FURY to choose me with a spell or ability.) When I attack, deal 5 damage split among any number of enemy units here.",
+  "effects": [
+    {
+      "effect": "deflect",
+      "params": {
+        "value": 2
+      }
+    },
+    {
+      "effect": "attack_damage_split",
+      "params": {
+        "damage": 5
+      }
+    }
+  ],
+  "flavor": "I split mountains with my roar!",
+  "artist": "Envar Studio",
+  "card_id": "OGN 041/298"
+}

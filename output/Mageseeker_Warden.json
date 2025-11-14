@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "Mageseeker Warden",
+  "type": "UNIT",
+  "domain": "MIND",
+  "cost": {
+    "energy": 6,
+    "power": null
+  },
+  "stats": {
+    "might": 5,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "DEMACIA"
+  ],
+  "rules_text": "While I’m at a battlefield, opponents can only play units to their base.\nWhile I’m at a battlefield, spells and abilities can't ready enemy units and gear.",
+  "effects": [
+    {
+      "effect": "restrict opponent unit play location",
+      "params": {
+        "location": "base"
+      }
+    },
+    {
+      "effect": "restrict opponent readying",
+      "params": {
+        "target": "enemy units and gear"
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Six More Vodka",
+  "card_id": "OGN-070/298"
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "Sky Splitter",
+  "type": "SPELL",
+  "domain": "FURY",
+  "cost": {
+    "energy": 8,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACTION"
+  ],
+  "tags": [],
+  "rules_text": "This spell's Energy cost is reduced by the highest Might among units you control. Deal 5 to a unit at a battlefield.",
+  "effects": [
+    {
+      "effect": "energy cost reduction",
+      "params": {
+        "condition": "highest Might among units you control"
+      }
+    },
+    {
+      "effect": "deal damage",
+      "params": {
+        "amount": 5,
+        "target": "unit at a battlefield"
+      }
+    }
+  ],
+  "flavor": "\"Puny mortals!\" —Volibear",
+  "artist": "Polar Engine Studio",
+  "card_id": "OGN014/298"
+}

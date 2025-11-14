@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "name": "Last Stand",
+  "type": "SPELL",
+  "domain": "BODY",
+  "cost": {
+    "energy": 3,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACTION",
+    "TEMPORARY"
+  ],
+  "tags": [],
+  "rules_text": "Double a friendly unit's Might this turn. Give it (Kill it at the start of its controller's Beginning Phase, before scoring).",
+  "effects": [],
+  "flavor": "Worth it.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 069/298"
+}

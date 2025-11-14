@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "name": "Block",
+  "type": "SPELL",
+  "domain": "MIND",
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "HIDDEN",
+    "ACTION",
+    "SHIELD",
+    "TANK"
+  ],
+  "tags": [],
+  "rules_text": "HIDE (Hide now for MIND to react with later for 0.) ACTION (Play on your turn or in showdowns.) Give a unit SHIELD 3 and TANK this turn. (+3 armor while it’s a defender. It must be assigned combat damage first.)",
+  "effects": [
+    {
+      "effect": "give a unit shield 3 and tank",
+      "params": {
+        "duration": "this turn"
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Kudos Productions",
+  "card_id": "OGN-057/298"
+}

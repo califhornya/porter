@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "name": "Wielder of Water",
+  "type": "UNIT",
+  "domain": "IONIA",
+  "cost": {
+    "energy": 3,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": 2
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "While I'm attacking or defending alone, I have +2 armor.",
+  "effects": [],
+  "flavor": "Each drop an ocean of possibilities.",
+  "artist": "Six More Vodka",
+  "card_id": "OGN-055/298"
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "name": "Energy Conduit",
+  "type": "GEAR",
+  "domain": null,
+  "cost": {
+    "energy": 3,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "REACTION — ADD 1. (Abilities that add resources can't be reacted to.)",
+  "effects": [
+    {
+      "effect": "reaction",
+      "params": {
+        "add": 1
+      }
+    }
+  ],
+  "flavor": "Whatever it does, it sure does a lot of it.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN-098/298"
+}

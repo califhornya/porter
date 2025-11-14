@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "name": "Draven",
+  "type": "UNIT",
+  "domain": null,
+  "cost": {
+    "energy": 5,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": 3
+  },
+  "keywords": [],
+  "tags": [
+    "CHAMPION",
+    "NOXUS"
+  ],
+  "rules_text": "My Might is increased by your points.",
+  "effects": [],
+  "flavor": "“Let’s admire me for a bit.”",
+  "artist": "Six More Vodka",
+  "card_id": "028/298"
+}

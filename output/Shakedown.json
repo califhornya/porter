@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "Shakedown",
+  "type": "SPELL",
+  "domain": "FURY",
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "Play any time, even before spells and abilities resolve. Choose an enemy unit. Deal 6 to it unless its controller has you draw 2.",
+  "effects": [
+    {
+      "effect": "choose an enemy unit",
+      "params": {}
+    },
+    {
+      "effect": "deal damage",
+      "params": {
+        "amount": 6
+      }
+    },
+    {
+      "effect": "draw cards",
+      "params": {
+        "amount": 2
+      }
+    }
+  ],
+  "flavor": "\"Blink once for yes.\"",
+  "artist": "Kudos Productions",
+  "card_id": "OGN033/298"
+}

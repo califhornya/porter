@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "name": "Thermo Beam",
+  "type": "SPELL",
+  "domain": "FURY",
+  "cost": {
+    "energy": 5,
+    "power": "FURY"
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "ACTION (Play on your turn or in showdowns.) Kill all gear.",
+  "effects": [
+    {
+      "effect": "kill all gear",
+      "params": {}
+    }
+  ],
+  "flavor": "\"Turn the limiter off, the beam is totally stable.\" —Common last words",
+  "artist": "Max Grecke",
+  "card_id": "OGN022/298"
+}

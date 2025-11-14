@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "name": "Orb of Regret",
+  "type": "GEAR",
+  "domain": null,
+  "cost": {
+    "energy": 1,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "Give a unit -1🗲 this turn, to a minimum of 1🗲.",
+  "effects": [
+    {
+      "effect": "modify_unit_stat",
+      "params": {
+        "stat": "might",
+        "modifier": -1,
+        "minimum": 1
+      }
+    }
+  ],
+  "flavor": "There's beauty in even the most painful memories.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 090/298"
+}

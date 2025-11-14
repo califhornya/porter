@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "name": "Pit Crew",
+  "type": "UNIT",
+  "domain": "null",
+  "cost": {
+    "energy": 3,
+    "power": null
+  },
+  "stats": {
+    "might": 3,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "BANDLE CITY"
+  ],
+  "rules_text": "When you play a gear, ready me.",
+  "effects": [],
+  "flavor": "\"GOOD ENOUGH LET'S GOOOOO!\"",
+  "artist": "Chris Kintner",
+  "card_id": "091/298"
+}

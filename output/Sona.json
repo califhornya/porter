@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "name": "Sona",
+  "type": "UNIT",
+  "domain": "MIND",
+  "cost": {
+    "energy": 4,
+    "power": null
+  },
+  "stats": {
+    "might": 4,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "CHAMPION"
+  ],
+  "tags": [
+    "SONA",
+    "DEMACIA"
+  ],
+  "rules_text": "While I'm at a battlefield, ready 4 friendly runes at the end of your turn.",
+  "effects": [
+    {
+      "effect": "ready",
+      "params": {
+        "target": "4 friendly runes",
+        "timing": "end of your turn"
+      }
+    }
+  ],
+  "flavor": "The symphony never ends.",
+  "artist": "League Splash Team",
+  "card_id": "OGN073298"
+}

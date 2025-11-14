@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "name": "Clockwork Keeper",
+  "type": "UNIT",
+  "domain": "SHURIMA",
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": 2,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "As you play me, you may pay one Shurima as an additional cost. If you do, draw 1.",
+  "effects": [
+    {
+      "effect": "draw",
+      "params": {
+        "amount": 1
+      }
+    }
+  ],
+  "flavor": "It always goes back for seconds.",
+  "artist": "Polar Engine Studio",
+  "card_id": "OGN044/298"
+}
