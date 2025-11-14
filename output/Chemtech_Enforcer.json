@@ -1,0 +1,39 @@
+{
+  "name": "Chemtech Enforcer",
+  "type": "UNIT",
+  "domain": "FURY",
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": 2,
+    "damage": 2,
+    "armor": null
+  },
+  "keywords": [
+    "ASSAULT"
+  ],
+  "tags": [
+    "ZAUN"
+  ],
+  "rules_text": "ASSAULT 2 (+2 damage while I'm an attacker.) When you play me, discard 1.",
+  "effects": [
+    {
+      "effect": "ASSAULT",
+      "params": {
+        "value": 2
+      }
+    },
+    {
+      "effect": "discard",
+      "params": {
+        "quantity": 1,
+        "trigger": "play"
+      }
+    }
+  ],
+  "flavor": "\"Knock, knock.\"",
+  "artist": "Six More Vodka",
+  "card_id": "OGN 003/298"
+}

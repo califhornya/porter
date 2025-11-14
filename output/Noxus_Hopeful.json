@@ -1,0 +1,26 @@
+{
+  "name": "Noxus Hopeful",
+  "type": "UNIT",
+  "domain": null,
+  "cost": {
+    "energy": 4,
+    "power": null
+  },
+  "stats": {
+    "might": 4,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "LEGION"
+  ],
+  "tags": [
+    "NOXUS",
+    "TRIFARIAN"
+  ],
+  "rules_text": "LEGION — I cost 2 less. (Get the effect if you've played another card this turn.)",
+  "effects": [],
+  "flavor": "First to the front, first to glory.",
+  "artist": "Six More Vodka",
+  "card_id": "OGN012/298"
+}

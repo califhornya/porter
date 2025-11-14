@@ -1,0 +1,31 @@
+{
+  "name": "Hextech Ray",
+  "type": "SPELL",
+  "domain": "CHAOS",
+  "cost": {
+    "energy": 1,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACTION"
+  ],
+  "tags": [],
+  "rules_text": "(Play on your turn or in showdowns.) Deal 3 to a unit at a battlefield.",
+  "effects": [
+    {
+      "effect": "deal_damage",
+      "params": {
+        "amount": 3,
+        "target": "unit"
+      }
+    }
+  ],
+  "flavor": "\"Destroy. Then Improve.\" –Viktor",
+  "artist": null,
+  "card_id": "OGN009/298"
+}
