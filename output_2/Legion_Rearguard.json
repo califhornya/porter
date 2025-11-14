@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "Legion Rearguard",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACCELERATE"
+  ],
+  "tags": [
+    "NOXUS",
+    "TRIFARIAN"
+  ],
+  "rules_text": "ACCELERATE (You may pay 1 FURY as an additional cost to have me enter ready.)",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Accelerate allows paying 1 FURY to enter ready."
+      }
+    }
+  ],
+  "flavor": "The last line of offense.",
+  "artist": "Six More Vodka",
+  "card_id": "OGN010/298"
+}

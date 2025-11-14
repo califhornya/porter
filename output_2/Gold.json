@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "name": "Gold",
+  "supertypes": [
+    "TOKEN"
+  ],
+  "type": "GEAR",
+  "domain": null,
+  "domains": [],
+  "cost": {
+    "energy": 0,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "Kill this, Reaction — Add 1. (Abilities that add resources can't be reacted to.)",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Kill this item to add 1 power. Abilities adding resources cannot be reacted to."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Kudos Productions",
+  "card_id": "SFD-T03"
+}

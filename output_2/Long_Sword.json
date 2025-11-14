@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "name": "Long Sword",
+  "supertypes": [],
+  "type": "GEAR",
+  "domain": "BODY",
+  "domains": [
+    "BODY"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": "BODY"
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "",
+  "effects": [],
+  "flavor": null,
+  "artist": null,
+  "card_id": null
+}

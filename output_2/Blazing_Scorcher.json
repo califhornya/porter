@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "Blazing Scorcher",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 5,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACCELERATE"
+  ],
+  "tags": [
+    "NOXUS",
+    "DRAGON"
+  ],
+  "rules_text": "Accelerate (You may pay 1 FURY as an additional cost to have me enter ready.)",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "You may pay 1 FURY as an additional cost to have the unit enter ready."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Envar Studio",
+  "card_id": "OGN-001/298"
+}

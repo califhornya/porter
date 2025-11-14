@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "name": "Cleave",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 1,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACTION",
+    "ASSAULT 3"
+  ],
+  "tags": [],
+  "rules_text": "ACTION (Play on your turn or in showdowns.)\nGive a unit ASSAULT 3 this turn. (+3⚔️ while it's an attacker.)",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Gives a unit Assault 3 this turn, providing +3 damage while attacking."
+      }
+    }
+  ],
+  "flavor": "Nobody ever won a war without attacking.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN - 004/298"
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "Feral Strength",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "CALM",
+  "domains": [
+    "CALM"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION",
+    "REPEAT 2"
+  ],
+  "tags": [],
+  "rules_text": "Reaction (Play any time, even before spells and abilities resolve.)\nRepeat 2 (You may pay the additional cost to repeat this spell's effect.)\nGive a unit +2 might this turn.",
+  "effects": [
+    {
+      "effect": "buff",
+      "params": {
+        "target": "unit",
+        "might_increase": 2
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Kudos Productions",
+  "card_id": "SFD-034/221"
+}

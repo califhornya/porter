@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "name": "Brazen Buccaneer",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "BODY",
+  "domains": [
+    "BODY"
+  ],
+  "cost": {
+    "energy": 6,
+    "power": null
+  },
+  "stats": {
+    "might": 5,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "BILGEWATER",
+    "PIRATE"
+  ],
+  "rules_text": "As you play me, you may discard a card as an additional cost. If you do, reduce my cost by 2.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Allows discarding a card to reduce its cost by 2 when played."
+      }
+    }
+  ],
+  "flavor": "“They called my crew ‘scurvy dogs,’ and I took that personally.”",
+  "artist": "Six More Vodka",
+  "card_id": "OGN-002/298"
+}

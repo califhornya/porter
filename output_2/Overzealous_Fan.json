@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "name": "Overzealous Fan",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "CHAOS",
+  "domains": [
+    "CHAOS"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": "CHAOS"
+  },
+  "stats": {
+    "might": 2,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "NOXUS"
+  ],
+  "rules_text": "When I defend, you may kill me to move an attacking unit to its base.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When defending, you can sacrifice this unit to return an attacking unit to its base."
+      }
+    }
+  ],
+  "flavor": "\"Like Draven says ... Hit 'em where it hurts!\"",
+  "artist": "Six More Vodka",
+  "card_id": "SFD • 128/221"
+}

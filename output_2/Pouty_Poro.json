@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "Pouty Poro",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": 2,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "DEFLECT"
+  ],
+  "tags": [
+    "PORO"
+  ],
+  "rules_text": "DEFLECT (Opponents must pay 🌀 to choose me with a spell or ability.)",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Opponents must pay FURY to choose this unit with a spell or ability."
+      }
+    }
+  ],
+  "flavor": "\"Braum takes medicine too, see?\" —Braum",
+  "artist": "Caravan Studio",
+  "card_id": "OGN 013/298"
+}

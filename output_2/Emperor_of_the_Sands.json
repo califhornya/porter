@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "Emperor of the Sands",
+  "supertypes": [
+    "LEGEND"
+  ],
+  "type": "LEGEND",
+  "domain": "CALM",
+  "domains": [
+    "CALM",
+    "ORDER"
+  ],
+  "cost": {
+    "energy": 5,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "WEAPONMASTER"
+  ],
+  "tags": [
+    "AZIR"
+  ],
+  "rules_text": "Your Sand Soldiers have WEAPONMASTER.\n1, T: Play a 2/1 Sand Soldier unit token to your base. Use only if you’ve played an Equipment this turn.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Gives Sand Soldiers WEAPONMASTER. Allows playing a 2/1 Sand Soldier token if Equipment was played this turn."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "@2025RGI",
+  "card_id": "SFD · 197/221"
+}
