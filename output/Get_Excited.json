@@ -1,0 +1,37 @@
+{
+  "name": "Get Excited!",
+  "type": "SPELL",
+  "domain": "FURY",
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACTION"
+  ],
+  "tags": [],
+  "rules_text": "Discard 1. Deal its Energy cost as damage to a unit at a battlefield. (Ignore its Power cost.)",
+  "effects": [
+    {
+      "effect": "discard",
+      "params": {
+        "amount": 1
+      }
+    },
+    {
+      "effect": "deal_damage",
+      "params": {
+        "source": "discarded_card_energy_cost",
+        "target": "unit_at_battlefield"
+      }
+    }
+  ],
+  "flavor": "\"Everybody, panic!\" – Jinx",
+  "artist": "Original Force Studio",
+  "card_id": "OGN 008/298"
+}

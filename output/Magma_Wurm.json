@@ -1,0 +1,23 @@
+{
+  "name": "Magma Wurm",
+  "type": "UNIT",
+  "domain": "FURY",
+  "cost": {
+    "energy": 8,
+    "power": null
+  },
+  "stats": {
+    "might": 8,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "FRELJORD"
+  ],
+  "rules_text": "Other friendly units enter ready.",
+  "effects": [],
+  "flavor": "A river of flame in an ocean of ice.",
+  "artist": "Envar Studio",
+  "card_id": "OGN 011/298"
+}

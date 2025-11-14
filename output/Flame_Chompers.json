@@ -1,0 +1,23 @@
+{
+  "name": "Flame Chompers",
+  "type": "UNIT",
+  "domain": null,
+  "cost": {
+    "energy": 3,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": 3,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "ZAUN"
+  ],
+  "rules_text": "When you discard me, you may pay to play me.",
+  "effects": [],
+  "flavor": "\"GET 'EM, CHOMPIES!\"\n—Jinx",
+  "artist": "Six More Vodka",
+  "card_id": "OGN006/298"
+}
