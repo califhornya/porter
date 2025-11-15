@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "Sett The Boss",
+  "supertypes": [
+    "LEGEND"
+  ],
+  "type": "LEGEND",
+  "domain": "BODY",
+  "domains": [
+    "BODY",
+    "ORDER"
+  ],
+  "cost": {
+    "energy": 0,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "SETT"
+  ],
+  "rules_text": "When a buffed unit you control would die, you may pay 2 and exhaust me to spend its buff and recall it exhausted instead. (Send it to base. This isn't a move.)\nWhen you conquer, ready me.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Allows buffed units to recall instead of dying and reactivates when conquering."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Envar Studio",
+  "card_id": "OGN 269/298"
+}

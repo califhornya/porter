@@ -242,7 +242,7 @@ DOMAIN RULES:
 
 - All non-token cards normally have one or two domains.
 - Some special tokens or objects may have no domain.
-- Cards can have up to two domains.
+- IMPORTANT: Cards can have up to two domains. Domains:[ ] with 3 values is invalid.
 
 UNIT and LEGEND cards:
 - Domains are indicated in the domain icons on the card frame (for example, in or near the cost gem).
@@ -430,6 +430,77 @@ def normalize_rules_text(text: Optional[str]) -> str:
     normalized = text.replace("\r\n", "\n").replace("\r", "\n")
     lines = [line.strip() for line in normalized.split("\n")]
     return "\n".join(line for line in lines if line)
+
+# ============================================================
+# Signature Spell Domain Override
+# ============================================================
+
+# Fill this as your card set expands
+CHAMPION_DOMAINS = {
+    "Teemo": ["MIND", "CHAOS"],
+    "Garen": ["ORDER", "BODY"],
+    "Darius": ["FURY", "ORDER"],
+    "Ahri": ["MIND", "CALM"],
+    "Kai'Sa": ["FURY", "MIND"],
+    "Volibear": ["FURY", "BODY"],
+    "Jinx": ["FURY", "CHAOS"],
+    "Lee Sin": ["FURY", "CALM"],
+    "Yasuo": ["CALM", "CHAOS"],
+    "Irelia": ["CALM", "CHAOS"],
+    "Leona": ["ORDER", "CALM"],
+    "Viktor": ["MIND", "ORDER"],
+    "Miss Fortune": ["FURY", "CHAOS"],
+    "Sett": ["ORDER", "BODY"],
+    "Annie": ["FURY", "CHAOS"],
+    "Master Yi": ["BODY", "CALM"],
+    "Lux": ["MIND", "ORDER"],
+    "Draven": ["FURY", "CHAOS"],
+    "Azir": ["ORDER", "CALM"],
+    "Renata Glasc": ["MIND", "ORDER"],
+    "Sivir": ["ORDER", "CHAOS"],
+}
+
+
+def detect_signature_spell(data: Dict[str, Any]) -> Optional[str]:
+    """
+    Detect if this is a Signature Spell and return champion name if present.
+    Looks at rules_text and nameplate area that the model outputs.
+    """
+    text = (data.get("rules_text") or "").upper()
+    tags = [t.upper() for t in data.get("tags", [])]
+
+    # The card header extracted by the model usually writes:
+    # "SIGNATURE SPELL · TEEMO" or similar
+    if "SIGNATURE SPELL" in text:
+        # Try to identify the champion name after the dot
+        # Example the model often emits: "SIGNATURE SPELL · TEEMO"
+        parts = text.split("SIGNATURE SPELL")
+        if len(parts) > 1:
+            tail = parts[1]
+            # Extract the first uppercase token that matches a champion
+            for champ in CHAMPION_DOMAINS:
+                if champ.upper() in tail:
+                    return champ
+
+    return None
+
+
+def override_signature_spell_domains(data: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    If this is a Signature Spell, override domains from champion metadata.
+    """
+    champ = detect_signature_spell(data)
+    if not champ:
+        return data
+
+    domains = CHAMPION_DOMAINS.get(champ)
+    if not domains:
+        return data
+
+    # Override
+    data["domain"] = domains[0]
+    data["domains"] = domains[:]  # list copy
+    return data
 
 
 def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
