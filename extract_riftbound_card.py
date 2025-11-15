@@ -534,15 +534,19 @@ def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
 
     # Harmonize primary domain with domains[]
     primary_raw = processed.get("domain")
-    primary_list = _canonicalize_terms([primary_raw], DOMAIN_SYNONYMS) if primary_raw else []
+    primary_list = (
+        _canonicalize_terms([primary_raw], DOMAIN_SYNONYMS) if primary_raw else []
+    )
     primary = primary_list[0] if primary_list else None
 
     if primary and primary not in processed["domains"]:
-        processed["domains"].insert(0, primary)
-    elif not primary and processed["domains"]:
-        primary = processed["domains"][0]
+        processed["domains"].append(primary)
 
-    processed["domain"] = primary
+    domain_count = len(processed["domains"])
+    if domain_count == 1:
+        processed["domain"] = processed["domains"][0]
+    else:
+        processed["domain"] = None
 
     # Normalize effects
     processed["effects"] = normalize_effects(processed.get("effects", []))
