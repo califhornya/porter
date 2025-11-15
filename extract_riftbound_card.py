@@ -529,20 +529,33 @@ def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
         processed.get("supertypes") or [], SUPERTYPE_SYNONYMS
     )
 
-    domains_raw = processed.get("domains") or []
-    processed["domains"] = _canonicalize_terms(domains_raw, DOMAIN_SYNONYMS)
+    domains_raw = processed.get("domains")
+    if isinstance(domains_raw, str):
+        domains_iterable: Iterable[str] = [domains_raw]
+    elif isinstance(domains_raw, Iterable):
+        domains_iterable = list(domains_raw)
+    elif domains_raw:
+        domains_iterable = [str(domains_raw)]
+    else:
+        domains_iterable = []
+
+    processed["domains"] = _canonicalize_terms(domains_iterable, DOMAIN_SYNONYMS)
 
     # Harmonize primary domain with domains[]
     primary_raw = processed.get("domain")
-    primary_list = _canonicalize_terms([primary_raw], DOMAIN_SYNONYMS) if primary_raw else []
+    primary_list = (
+        _canonicalize_terms([primary_raw], DOMAIN_SYNONYMS) if primary_raw else []
+    )
     primary = primary_list[0] if primary_list else None
 
     if primary and primary not in processed["domains"]:
-        processed["domains"].insert(0, primary)
-    elif not primary and processed["domains"]:
-        primary = processed["domains"][0]
+        processed["domains"].append(primary)
 
-    processed["domain"] = primary
+    domain_count = len(processed["domains"])
+    if domain_count == 1:
+        processed["domain"] = processed["domains"][0]
+    else:
+        processed["domain"] = None
 
     # Normalize effects
     processed["effects"] = normalize_effects(processed.get("effects", []))

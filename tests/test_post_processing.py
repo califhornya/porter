@@ -1,3 +1,8 @@
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+
 from extract_riftbound_card import CardData, post_process_card_data
 
 
@@ -29,3 +34,51 @@ def test_post_process_card_data_normalizes_terms_and_effects():
     assert card.effects[0].effect == "score_vp"
     assert card.effects[1].effect == "draw_cards"
     assert card.rules_text == "Score 1 point.\nGain strength."
+
+
+def test_post_process_card_data_two_domains_domain_none():
+    raw = {
+        "name": "Dual Domain Card",
+        "type": "UNIT",
+        "domain": "Fury",
+        "domains": ["Body"],
+        "cost": {"energy": 4, "power": None},
+        "stats": {"might": 3, "damage": None, "armor": None},
+        "keywords": [],
+        "tags": [],
+        "rules_text": "",
+        "effects": [],
+        "flavor": None,
+        "artist": None,
+        "card_id": "TEST-002",
+    }
+
+    processed = post_process_card_data(raw)
+    card = CardData.model_validate(processed)
+
+    assert card.domain is None
+    assert sorted(card.domains) == ["BODY", "FURY"]
+
+
+def test_post_process_card_data_single_domain_string_promoted():
+    raw = {
+        "name": "String Domain Card",
+        "type": "UNIT",
+        "domain": None,
+        "domains": "Body",
+        "cost": {"energy": 2, "power": None},
+        "stats": {"might": 1, "damage": None, "armor": None},
+        "keywords": [],
+        "tags": [],
+        "rules_text": "",
+        "effects": [],
+        "flavor": None,
+        "artist": None,
+        "card_id": "TEST-003",
+    }
+
+    processed = post_process_card_data(raw)
+    card = CardData.model_validate(processed)
+
+    assert card.domain == "BODY"
+    assert card.domains == ["BODY"]
