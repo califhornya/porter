@@ -242,6 +242,7 @@ DOMAIN RULES:
 
 - All non-token cards normally have one or two domains.
 - Some special tokens or objects may have no domain.
+- Cards can have up to two domains.
 
 UNIT and LEGEND cards:
 - Domains are indicated in the domain icons on the card frame (for example, in or near the cost gem).
