@@ -529,8 +529,17 @@ def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
         processed.get("supertypes") or [], SUPERTYPE_SYNONYMS
     )
 
-    domains_raw = processed.get("domains") or []
-    processed["domains"] = _canonicalize_terms(domains_raw, DOMAIN_SYNONYMS)
+    domains_raw = processed.get("domains")
+    if isinstance(domains_raw, str):
+        domains_iterable: Iterable[str] = [domains_raw]
+    elif isinstance(domains_raw, Iterable):
+        domains_iterable = list(domains_raw)
+    elif domains_raw:
+        domains_iterable = [str(domains_raw)]
+    else:
+        domains_iterable = []
+
+    processed["domains"] = _canonicalize_terms(domains_iterable, DOMAIN_SYNONYMS)
 
     # Harmonize primary domain with domains[]
     primary_raw = processed.get("domain")
