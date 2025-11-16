@@ -595,7 +595,15 @@ def _extract_json_text(response: Any) -> str:
     return strip_markdown_fences(json_text)
 
 
-def attempt_repair_json(client: OpenAI, raw_text: str, *, model: str) -> Optional[Dict[str, Any]]:
+def attempt_repair_json(
+    client: OpenAI,
+    raw_text: str,
+    *,
+    model: str,
+    temperature: float = 0.0,
+    top_p: Optional[float] = None,
+    seed: Optional[int] = None,
+) -> Optional[Dict[str, Any]]:
     """Second-pass: ask the model to fix invalid JSON."""
     repair_prompt = (
         "The following text was intended to be a JSON object describing a Riftbound card. "
@@ -603,9 +611,9 @@ def attempt_repair_json(client: OpenAI, raw_text: str, *, model: str) -> Optiona
         f"Broken JSON:\n{raw_text}"
     )
 
-    response = client.responses.create(
-        model=model,
-        input=[
+    request_kwargs: Dict[str, Any] = {
+        "model": model,
+        "input": [
             {
                 "role": "system",
                 "content": [
@@ -617,8 +625,17 @@ def attempt_repair_json(client: OpenAI, raw_text: str, *, model: str) -> Optiona
                 "content": [{"type": "input_text", "text": repair_prompt}],
             },
         ],
-        max_output_tokens=1024,
-    )
+        "max_output_tokens": 1024,
+        "temperature": temperature,
+        "response_format": {"type": "json_object"},
+    }
+
+    if top_p is not None:
+        request_kwargs["top_p"] = top_p
+    if seed is not None:
+        request_kwargs["seed"] = seed
+
+    response = client.responses.create(**request_kwargs)
 
     repaired_text = _extract_json_text(response)
 
@@ -628,13 +645,21 @@ def attempt_repair_json(client: OpenAI, raw_text: str, *, model: str) -> Optiona
         return None
 
 
-def extract_card_json(client: OpenAI, image_path: Path, model: str) -> Dict[str, Any]:
+def extract_card_json(
+    client: OpenAI,
+    image_path: Path,
+    model: str,
+    *,
+    temperature: float = 0.0,
+    top_p: Optional[float] = None,
+    seed: Optional[int] = None,
+) -> Dict[str, Any]:
     """Call the model on a single image and return the raw JSON dict."""
     data_url = image_to_data_url(image_path)
 
-    response = client.responses.create(
-        model=model,
-        input=[
+    request_kwargs: Dict[str, Any] = {
+        "model": model,
+        "input": [
             {
                 "role": "system",
                 "content": [{"type": "input_text", "text": SYSTEM_PROMPT}],
@@ -647,15 +672,31 @@ def extract_card_json(client: OpenAI, image_path: Path, model: str) -> Dict[str,
                 ],
             },
         ],
-        max_output_tokens=2048,
-    )
+        "max_output_tokens": 2048,
+        "temperature": temperature,
+        "response_format": {"type": "json_object"},
+    }
+
+    if top_p is not None:
+        request_kwargs["top_p"] = top_p
+    if seed is not None:
+        request_kwargs["seed"] = seed
+
+    response = client.responses.create(**request_kwargs)
 
     sanitized = _extract_json_text(response)
 
     try:
         return json.loads(sanitized)
     except json.JSONDecodeError:
-        repaired = attempt_repair_json(client, sanitized, model=model)
+        repaired = attempt_repair_json(
+            client,
+            sanitized,
+            model=model,
+            temperature=temperature,
+            top_p=top_p,
+            seed=seed,
+        )
         if repaired is None:
             raise RuntimeError(
                 "Model output was not valid JSON and automatic repair failed. "
@@ -693,6 +734,25 @@ def main() -> None:
         type=str,
         default="gpt-4o",
         help="OpenAI model to use.",
+    )
+    parser.add_argument(
+        "--temperature",
+        type=float,
+        default=0.0,
+        help="Sampling temperature for model queries (default: 0 for determinism).",
+    )
+    parser.add_argument(
+        "--top-p",
+        dest="top_p",
+        type=float,
+        default=None,
+        help="Optional nucleus sampling parameter for model queries.",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Optional random seed for deterministic sampling when supported by the model.",
     )
     parser.add_argument(
         "--print",
@@ -737,7 +797,14 @@ def main() -> None:
         print(f"Model: {args.model}")
 
         try:
-            raw_data = extract_card_json(client, image_path, model=args.model)
+            raw_data = extract_card_json(
+                client,
+                image_path,
+                model=args.model,
+                temperature=args.temperature,
+                top_p=args.top_p,
+                seed=args.seed,
+            )
         except Exception as exc:
             print(f"  ERROR while processing {image_path.name}: {exc}")
             continue
