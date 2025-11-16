@@ -18,4 +18,4 @@ test = [
 ]
 
 [project.scripts]
-porter = "extract_riftbound_card:main"
+porter = "porter.cli:main"

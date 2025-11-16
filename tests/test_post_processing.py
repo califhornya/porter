@@ -3,7 +3,9 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
-from extract_riftbound_card import CardData, post_process_card_data
+from porter.cli import clean_filename
+from porter.models import CardData
+from porter.post_process import detect_signature_spell, post_process_card_data
 
 
 def test_post_process_card_data_normalizes_terms_and_effects():
@@ -58,3 +60,27 @@ def test_post_process_card_data_two_domains_domain_none():
 
     assert card.domain is None
     assert sorted(card.domains) == ["BODY", "FURY"]
+
+
+def test_detect_signature_spell_reads_tags_and_text():
+    raw = {
+        "name": "Signature Spell",
+        "type": "SPELL",
+        "domain": None,
+        "domains": [],
+        "cost": {"energy": 1, "power": None},
+        "stats": {"might": None, "damage": None, "armor": None},
+        "keywords": [],
+        "tags": ["Signature", "Jinx"],
+        "rules_text": "Signature Spell · JINX",
+        "effects": [],
+        "flavor": None,
+        "artist": None,
+        "card_id": "TEST-003",
+    }
+
+    assert detect_signature_spell(raw) == "Jinx"
+
+
+def test_clean_filename_sanitizes_and_collapses_whitespace():
+    assert clean_filename("Jinx!  Wild   Ride?") == "Jinx_Wild_Ride"
