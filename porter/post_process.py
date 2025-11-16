@@ -169,6 +169,32 @@ def override_signature_spell_domains(data: Dict[str, Any]) -> Dict[str, Any]:
     return data
 
 
+def override_champion_domains(data: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    If the card references a champion by name, enforce canonical domains.
+    """
+    tags_upper = {str(tag).upper() for tag in data.get("tags", []) if tag}
+    name_upper = str(data.get("name") or "").upper()
+
+    champ = None
+    for champ_name in CHAMPION_DOMAINS:
+        champ_upper = champ_name.upper()
+        if champ_upper in tags_upper or champ_upper in name_upper:
+            champ = champ_name
+            break
+
+    if not champ:
+        return data
+
+    domains = CHAMPION_DOMAINS.get(champ)
+    if not domains:
+        return data
+
+    data["domain"] = domains[0]
+    data["domains"] = domains[:]  # list copy
+    return data
+
+
 def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
     """Apply normalization and compatibility fixes on raw model output."""
     processed: Dict[str, Any] = dict(data)
@@ -194,6 +220,16 @@ def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
     processed["supertypes"] = _canonicalize_terms(
         processed.get("supertypes") or [], SUPERTYPE_SYNONYMS
     )
+
+    # Apply champion domain overrides
+    processed = override_signature_spell_domains(processed)
+    processed = override_champion_domains(processed)
+
+    # Normalize effects
+    processed["effects"] = normalize_effects(processed.get("effects", []))
+
+    # Normalize rules text
+    processed["rules_text"] = normalize_rules_text(processed.get("rules_text"))
 
     domains_raw = processed.get("domains")
     if isinstance(domains_raw, str):
@@ -222,13 +258,5 @@ def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
         processed["domain"] = processed["domains"][0]
     else:
         processed["domain"] = None
-
-    # Normalize effects
-    processed = override_signature_spell_domains(processed)
-
-    processed["effects"] = normalize_effects(processed.get("effects", []))
-
-    # Normalize rules text
-    processed["rules_text"] = normalize_rules_text(processed.get("rules_text"))
 
     return processed
