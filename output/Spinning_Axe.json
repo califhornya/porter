@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "name": "Spinning Axe",
+  "supertypes": [
+    "SIGNATURE",
+    "GEAR"
+  ],
+  "type": "GEAR",
+  "domain": null,
+  "domains": [
+    "FURY",
+    "MIND"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "QUICK-DRAW",
+    "EQUIP",
+    "TEMPORARY"
+  ],
+  "tags": [
+    "DRAVEN",
+    "EQUIPMENT"
+  ],
+  "rules_text": "QUICK-DRAW (This has REACTION. When you play it, attach it to a unit you control.)\nEQUIP (Attach this to a unit you control.)\nTEMPORARY (If this is unattached, kill it at the start of its controller’s Beginning Phase, before scoring.)",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "This has REACTION. When you play it, attach it to a unit you control."
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Attach this to a unit you control."
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "If this is unattached, kill it at the start of its controller’s Beginning Phase, before scoring."
+      }
+    }
+  ],
+  "flavor": "“Got axes, need victims.” —Draven",
+  "artist": "Six More Vodka",
+  "card_id": "SFD-186/221"
+}

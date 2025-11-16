@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "name": "Overzealous Fan",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "MIND",
+  "domains": [
+    "MIND"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": null
+  },
+  "stats": {
+    "might": 2,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "NOXUS"
+  ],
+  "rules_text": "When I defend, you may kill me to move an attacking unit to its base.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When I defend, you may kill me to move an attacking unit to its base."
+      }
+    }
+  ],
+  "flavor": "“Like Draven says ... Hit ‘em where it hurts!”",
+  "artist": "Six More Vodka",
+  "card_id": "SFD • 128/221"
+}

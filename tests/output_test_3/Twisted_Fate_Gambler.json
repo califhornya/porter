@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "Twisted Fate Gambler",
+  "supertypes": [
+    "CHAMPION",
+    "TWISTED FATE",
+    "BILGEWATER"
+  ],
+  "type": "UNIT",
+  "domain": "CHAOS",
+  "domains": [
+    "CHAOS"
+  ],
+  "cost": {
+    "energy": 4,
+    "power": null
+  },
+  "stats": {
+    "might": 4,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "When I attack, reveal the top rune of your rune\ndeck, then recycle it. Do one of the following\nbased on its domain:\n- Deal 2 to an enemy unit here and 1 to all\nother enemy units here.\n- Draw 1.\n- Stun an enemy unit.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When I attack, reveal the top rune of your rune deck, then recycle it. Do one of the following based on its domain:\n- Deal 2 to an enemy unit here and 1 to all other enemy units here.\n- Draw 1.\n- Stun an enemy unit."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Six More Vodka",
+  "card_id": "OGN • 200/298"
+}

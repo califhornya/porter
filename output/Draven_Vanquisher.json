@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "Draven Vanquisher",
+  "supertypes": [
+    "CHAMPION"
+  ],
+  "type": "UNIT",
+  "domain": "ORDER",
+  "domains": [
+    "ORDER"
+  ],
+  "cost": {
+    "energy": 4,
+    "power": "ORDER"
+  },
+  "stats": {
+    "might": 4,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "DRAVEN",
+    "NOXUS"
+  ],
+  "rules_text": "When I win a combat, play a Gold gear token exhausted.\nWhen I attack or defend, you may pay . If you do, give me +2 this turn.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Plays a Gold gear token exhausted when winning a combat. May pay to gain +2 when attacking or defending."
+      }
+    }
+  ],
+  "flavor": "“Man, I’m good.”",
+  "artist": "Six More Vodka",
+  "card_id": "SFD 020/221"
+}

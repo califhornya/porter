@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "Lucian Merciless",
+  "supertypes": [
+    "CHAMPION"
+  ],
+  "type": "UNIT",
+  "domain": "ORDER",
+  "domains": [
+    "ORDER"
+  ],
+  "cost": {
+    "energy": 3,
+    "power": null
+  },
+  "stats": {
+    "might": 3,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "WEAPONMASTER"
+  ],
+  "tags": [
+    "LUCIAN",
+    "DEMACIA",
+    "SENTINEL"
+  ],
+  "rules_text": "(When you play me, you may EQUIP one of your Equipment to me for less, even if it's already attached.)\nThe first time I conquer each turn, ready me.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "(When you play me, you may EQUIP one of your Equipment to me for less, even if it's already attached.)"
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "The first time I conquer each turn, ready me."
+      }
+    }
+  ],
+  "flavor": "“One of us finds peace. One of us walks away.”",
+  "artist": "Six More Vodka",
+  "card_id": "SFD • 113/221"
+}

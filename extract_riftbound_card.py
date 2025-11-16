@@ -209,6 +209,7 @@ CARD TYPE RULES:
   - Legends do NOT get "CHAMPION" in "supertypes".
   - Both Legends and their corresponding Champion Units share the same Champion tag
     (for example "Volibear") which must appear in "tags".
+  - Legends have "null" energy and power costs. 
 
 SUPERTYPES:
 
@@ -558,6 +559,8 @@ def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
         processed["domain"] = None
 
     # Normalize effects
+    processed = override_signature_spell_domains(processed)
+    
     processed["effects"] = normalize_effects(processed.get("effects", []))
 
     # Normalize rules text

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "Long Sword",
+  "supertypes": [],
+  "type": "GEAR",
+  "domain": "BODY",
+  "domains": [
+    "BODY"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": "BODY"
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "QUICK-DRAW",
+    "REACTION",
+    "EQUIP"
+  ],
+  "tags": [],
+  "rules_text": "Quick-Draw (This has Reaction. When you play it, attach it to a unit you control.)\nEquip (Attach this to a unit you control.)",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Has Reaction. When played, attach to a unit you control. Can be equipped to a unit."
+      }
+    }
+  ],
+  "flavor": "Efforts to create the Longer Sword quickly ran into diminishing returns.",
+  "artist": "Dark Glow",
+  "card_id": "SFD ・022/221"
+}

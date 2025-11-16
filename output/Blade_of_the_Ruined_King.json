@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "name": "Blade of the Ruined King",
+  "supertypes": [],
+  "type": "GEAR",
+  "domain": "ORDER",
+  "domains": [
+    "ORDER"
+  ],
+  "cost": {
+    "energy": 3,
+    "power": null
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "EQUIP"
+  ],
+  "tags": [],
+  "rules_text": "EQUIP — Kill a friendly unit (Pay the cost: Attach this to a unit you control.)",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "EQUIP — Kill a friendly unit (Pay the cost: Attach this to a unit you control.)"
+      }
+    }
+  ],
+  "flavor": "\"You are not the hero of this tale.\"\n—Viego",
+  "artist": "霞宙岛Dark Glow",
+  "card_id": "SFD • 178/221"
+}
