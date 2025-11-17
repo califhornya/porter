@@ -1,228 +1,178 @@
-# Optional Improvements for the Riftbound Card Extractor
+# DEV.md — Power Cost System Upgrade
 
-This document describes optional enhancements that can improve accuracy, consistency, cost-efficiency, and long-term maintainability of the **porter** card-extraction tool and the overall Riftbound card-data pipeline.
+## Purpose
 
-These improvements are *not* required for functionality but provide a strong foundation for production-grade use.
+Riftbound power costs can contain:
+- Multiple power icons
+- Quantities (e.g. 2 BODY power)
+- Mixed domains (e.g. FURY + CHAOS)
 
----
-
-# 1. Normalizing Tags and Keywords
-
-### Problem
-Card images may use inconsistent casing or phrasing such as:
-- "EQUIPMENT" vs "Equipment"
-- "gear" vs "GEAR"
-- "Legend" vs "legend"
-
-### Improvement
-Implement canonical normalization rules after extraction.
-
-Example:
-```
-tags = [tag.upper() for tag in tags]
-keywords = [kw.upper() for kw in keywords]
-```
-
-Or maintain a mapping table:
-
-```
-EQUIPMENT → EQUIPMENT
-GEAR → GEAR
-UNIT → UNIT
-LEGEND → LEGEND
-TRIBE NAME → TRIBE NAME
-```
-
-This ensures strict consistency across the dataset.
+The current schema only supports a single string (`"BODY"` or `null"`).  
+The system must be upgraded to support a structured, accurate representation.
 
 ---
 
-# 2. Normalizing Effect Names
+# 1. Update JSON Schema (SYSTEM_PROMPT and prompts.py)
 
-### Problem
-LLM-extracted effect names will be correct but may vary slightly:
-- `score_point`
-- `score_vp`
-- `gain_point`
-
-### Improvement
-Define a canonical effect namespace:
+Replace the old section:
 
 ```
-deal_damage
-buff_might
-draw_cards
-attach
-score_vp
-trigger_on_hold
-trigger_on_conquer
+"cost": {
+  "energy": integer,
+  "power": "FURY | CALM | MIND | BODY | CHAOS | ORDER | null"
+}
 ```
 
-Then map extracted effects through a normalization layer:
-```
-if effect == "score_point":
-    effect = "score_vp"
-```
-
-This keeps data machine-friendly and future-proof.
-
----
-
-# 3. Auto-Compress Images Before Vision Requests
-
-### Problem
-Large PNG/webp source files increase cost. Vision models charge partially based on pixel count.
-
-### Improvement
-Downscale and compress images before sending:
+With:
 
 ```
-img.thumbnail((1024, 1024))
-img.save(buf, format="JPEG", quality=85)
+"cost": {
+  "energy": integer,
+  "power": [
+    {
+      "domain": "FURY | CALM | MIND | BODY | CHAOS | ORDER",
+      "amount": integer
+    }
+  ]
+}
 ```
 
-This reduces cost significantly with negligible accuracy loss.
+New cost rules:
 
----
-
-# 4. Add Schema Versioning
-
-### Problem
-As card definitions evolve, older JSON files may become incompatible.
-
-### Improvement
-Add a field:
 ```
-"schema_version": 1
-```
+- "cost.energy" is the number in the top-left corner.
 
-This enables backward compatibility, migration scripts, and data auditing.
+- "cost.power" is a list of power icons extracted exactly as shown.
+  Each entry in the list MUST contain:
+    - "domain": the icon's domain
+    - "amount": how many times that domain appears
 
----
+- If a card has no power icons, "cost.power" = [].
 
-# 5. Add a Post-Processor Pass
+- If the card shows two identical domain icons (e.g. BODY BODY),
+  return one item with:
+    { "domain": "BODY", "amount": 2 }
 
-A post-processor can clean and finalize the JSON:
-- normalize types
-- unify rules_text formatting
-- fix line breaks
-- collapse whitespace
-- ensure parameters are consistent
-- reorder fields predictably
-
-This produces publication-grade JSON.
-
----
-
-# 6. Add Tests
-
-Add a `tests/` folder with:
-- sample card images
-- expected JSON outputs
-- snapshot tests
-
-Use pytest:
-```
-uv run pytest
-```
-
-This catches accidental regressions.
-
----
-
-# 7. Add a Dry-Run Mode
-
-Useful for debugging:
-```
-uv run porter card.webp --dry-run
-```
-
-Prints extracted JSON without writing a file.
-
----
-
-# 8. Add Error-Recovery Pass
-
-If the LLM returns malformed JSON:
-1. Attempt parsing.
-2. On failure, send back to GPT with a repair prompt.
-3. Validate again.
-
-This eliminates rare JSON formatting issues.
-
----
-
-# 9. Implement Domain-Specific Parsing Rules
-
-Define patterns for Riftbound mechanics:
-- "When I hold" → `trigger_on_hold`
-- "score X point(s)" → `score_vp`
-- "Equip" → `attach`
-- "+N armor" → `stats.armor = N`
-
-This enables auto-structured effects.
-
----
-
-# 10. Maintain a Registry of Known Cards
-
-Example folder:
-```
-cards/
-    Trinity_Force.json
-    Ahri_Inquisitive.json
-```
-
-Add a batch runner:
-```
-uv run porter --all cards_in/ --out cards/
+- If the card shows mixed domains (e.g. FURY + CHAOS),
+  return two items, in visual left-to-right order:
+    [
+      { "domain": "FURY", "amount": 1 },
+      { "domain": "CHAOS", "amount": 1 }
+    ]
 ```
 
 ---
 
-# 11. Logging
+# 2. Update Pydantic Models (models.py and duplicates)
 
-Add logs including:
-- timestamp
-- model used
-- tokens consumed
-- estimated cost
-- extraction warnings
+Add:
+
+```
+class PowerCostItem(BaseModel):
+    domain: str
+    amount: int = Field(..., ge=1)
+```
+
+Replace old CardCost:
+
+```
+class CardCost(BaseModel):
+    energy: int = Field(..., ge=0)
+    power: Optional[str] = None
+```
+
+With:
+
+```
+class CardCost(BaseModel):
+    energy: int = Field(..., ge=0)
+    power: List[PowerCostItem] = Field(default_factory=list)
+```
 
 ---
 
-# 12. Duplicate Detection via Hashing
+# 3. Update SYSTEM_PROMPT text
 
-Add a SHA-256 hash of the image:
+Replace all:
 ```
-"image_hash": "aab4e7f..."
+"power": "FURY | CALM | MIND | BODY | CHAOS | ORDER | null"
 ```
 
-Avoids double processing of identical cards.
+With:
+```
+"power": [
+  {
+    "domain": "FURY | CALM | MIND | BODY | CHAOS | ORDER",
+    "amount": integer
+  }
+]
+```
+
+Add the new cost rules.
 
 ---
 
-# 13. Stable Field Ordering
+# 4. Update post_process.py
 
-Ensure predictable key ordering when writing JSON.
+Remove assumptions that power is:
+- a string
+- null for multi-domain
 
----
-
-# 14. Model Flexibility
-
-Allow switching models:
-```
---model gpt-4o
---model gpt-4.1
---model o1
-```
-
-This future-proofs the pipeline.
+Ensure:
+- `power` remains a list
+- Each item's `domain` is canonicalized with DOMAIN_SYNONYMS
+- Do NOT collapse or rewrite entries
 
 ---
 
-These improvements will:
-- increase data consistency
-- reduce costs
-- improve extraction robustness
-- support large-scale card ingestion
+# 5. No changes to domain identification
+
+Domains remain independent from power costs.  
+Do not infer domains from power.
+
+---
+
+# 6. Update example JSON files
+
+Convert old form:
+```
+"power": "BODY"
+```
+
+To new form:
+```
+"power": [
+  { "domain": "BODY", "amount": 1 }
+]
+```
+
+And:
+```
+"power": null
+```
+
+Becomes:
+```
+"power": []
+```
+
+---
+
+# 7. Migration utility (optional)
+
+Convert old JSON to new schema:
+- If power is string -> list with amount 1
+- If power is null -> empty list
+
+---
+
+# 8. Summary of required modifications
+
+1. Update SYSTEM_PROMPT in:
+   - prompts.py
+   - extract_riftbound_card.py
+2. Update CardCost model in all files
+3. Add PowerCostItem model
+4. Update post_process.py to accept lists
+5. Canonicalize domain inside each power item
+6. Update JSON examples everywhere

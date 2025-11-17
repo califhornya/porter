@@ -7,8 +7,8 @@
   "type": "SPELL",
   "domain": null,
   "domains": [
-    "BODY",
-    "FURY"
+    "ORDER",
+    "BODY"
   ],
   "cost": {
     "energy": 1,
@@ -23,22 +23,16 @@
   "tags": [
     "SETT"
   ],
-  "rules_text": "Buff a friendly unit in your base, then move it to a battlefield. (If it doesn't have a buff, it gets a +1/0 buff.)",
+  "rules_text": "Buff a friendly unit in your base, then move it to a battlefield. (If it doesn't have a buff, it gets a +1|0 buff.)",
   "effects": [
     {
       "effect": "custom",
       "params": {
-        "summary": "Buff a friendly unit in your base, then move it to a battlefield."
-      }
-    },
-    {
-      "effect": "custom",
-      "params": {
-        "summary": "(If it doesn't have a buff, it gets a +1/0 buff.)"
+        "summary": "Buff a friendly unit in your base, then move it to a battlefield. If it doesn't have a buff, it gets a +1|0 buff."
       }
     }
   ],
   "flavor": null,
   "artist": "Kudos Productions",
-  "card_id": "OGN · 270/298"
+  "card_id": "OGN-270/298"
 }
