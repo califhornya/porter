@@ -1,4 +1,7 @@
+from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
+
+from .image_utils import DomainColorSample, infer_domains_from_image
 
 
 KEYWORD_SYNONYMS = {
@@ -195,7 +198,51 @@ def override_champion_domains(data: Dict[str, Any]) -> Dict[str, Any]:
     return data
 
 
-def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
+def _apply_domain_color_hint(
+    processed: Dict[str, Any], color_hint: Optional[DomainColorSample]
+) -> Dict[str, Any]:
+    """Use a sampled color hint to override obvious domain mistakes."""
+
+    if not color_hint or color_hint.confidence < 0.6 or not color_hint.domains:
+        return processed
+
+    inferred = _canonicalize_terms(color_hint.domains, DOMAIN_SYNONYMS)
+    if not inferred:
+        return processed
+
+    power_items = processed.get("cost", {}).get("power", []) or []
+    power_domains = [
+        item.get("domain") for item in power_items if isinstance(item, dict) and item.get("domain")
+    ]
+
+    # Build a replacement power list, preserving total amount if the domain matches.
+    replacement_power: List[Dict[str, Any]] = []
+    if len(inferred) == 1:
+        total_amount = 0
+        for item in power_items:
+            if isinstance(item, dict) and item.get("domain") == inferred[0]:
+                try:
+                    total_amount += int(item.get("amount", 0))
+                except (TypeError, ValueError):
+                    continue
+        replacement_power = [
+            {"domain": inferred[0], "amount": total_amount or 1},
+        ]
+    else:
+        replacement_power = [{"domain": domain, "amount": 1} for domain in inferred]
+
+    mismatch = set(power_domains) != set(inferred[: len(power_domains)])
+    if mismatch or not power_domains or color_hint.confidence >= 0.8:
+        processed.setdefault("cost", {})["power"] = replacement_power
+
+    processed["domains"] = inferred
+    processed["domain"] = inferred[0] if len(inferred) == 1 else None
+    return processed
+
+
+def post_process_card_data(
+    data: Dict[str, Any], image_path: Optional[Path] = None
+) -> Dict[str, Any]:
     """Apply normalization and compatibility fixes on raw model output."""
     processed: Dict[str, Any] = dict(data)
     processed.setdefault("schema_version", 1)
@@ -253,6 +300,13 @@ def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
 
     processed["cost"] = {"energy": energy, "power": power_items}
 
+    color_hint: Optional[DomainColorSample] = None
+    if image_path:
+        try:
+            color_hint = infer_domains_from_image(image_path)
+        except OSError:
+            color_hint = None
+
     # Canonicalize list-like fields
     processed["keywords"] = _canonicalize_terms(
         processed.get("keywords") or [], KEYWORD_SYNONYMS
@@ -265,6 +319,8 @@ def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
     processed["supertypes"] = _canonicalize_terms(
         processed.get("supertypes") or [], SUPERTYPE_SYNONYMS
     )
+
+    processed = _apply_domain_color_hint(processed, color_hint)
 
     # Apply champion domain overrides
     processed = override_signature_spell_domains(processed)

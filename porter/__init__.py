@@ -1,7 +1,7 @@
 """Porter Riftbound card extraction package."""
 
 from .models import CardCost, CardStats, CardEffect, CardData, PowerCostItem
-from .image_utils import image_to_data_url
+from .image_utils import DomainColorSample, image_to_data_url, infer_domains_from_image
 from .prompts import SYSTEM_PROMPT
 from .post_process import (
     CHAMPION_DOMAINS,
@@ -26,7 +26,9 @@ __all__ = [
     "CardEffect",
     "CardData",
     "PowerCostItem",
+    "DomainColorSample",
     "image_to_data_url",
+    "infer_domains_from_image",
     "SYSTEM_PROMPT",
     "CHAMPION_DOMAINS",
     "TAG_SYNONYMS",

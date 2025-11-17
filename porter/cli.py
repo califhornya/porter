@@ -132,7 +132,7 @@ def extract(
             print(f"  ERROR while processing {image_path.name}: {exc}")
             continue
 
-        processed_data = post_process_card_data(raw_data)
+        processed_data = post_process_card_data(raw_data, image_path=image_path)
 
         try:
             card = CardData.model_validate(processed_data)
