@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "Charm",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "CALM",
+  "domains": [
+    "CALM"
+  ],
+  "cost": {
+    "energy": 1,
+    "power": [
+      {
+        "domain": "CALM",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "Move an enemy unit.",
+  "effects": [
+    {
+      "effect": "move",
+      "params": {
+        "target": "enemy unit"
+      }
+    }
+  ],
+  "flavor": "“There’s no harm in looking.” —Common last words",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 043/298"
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "Time Warp",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "MIND",
+  "domains": [
+    "MIND"
+  ],
+  "cost": {
+    "energy": 10,
+    "power": [
+      {
+        "domain": "MIND",
+        "amount": 4
+      },
+      {
+        "domain": "ORDER",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "Take a turn after this one. Banish this.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Take a turn after this one and banish this card."
+      }
+    }
+  ],
+  "flavor": "\"Fool me once...and I'll just rewind.\" —Ekko",
+  "artist": "Kudos Productions",
+  "card_id": "OGN - 122/298"
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Grove of the God-Willow",
+  "supertypes": [],
+  "type": "BATTLEFIELD",
+  "domain": null,
+  "domains": [],
+  "cost": {
+    "energy": null,
+    "power": []
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "When you hold here, draw 1.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When you hold here, draw 1 card."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Kudos Productions",
+  "card_id": "OGN-280/298"
+}

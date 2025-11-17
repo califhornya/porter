@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "name": "Discipline",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "CALM",
+  "domains": [
+    "CALM"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": []
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "Reaction (Play any time, even before spells and abilities resolve.)\nGive a unit +2 armor this turn. Draw 1.",
+  "effects": [
+    {
+      "effect": "buff",
+      "params": {
+        "target": "unit",
+        "armor": 2,
+        "duration": "this turn"
+      }
+    },
+    {
+      "effect": "draw_cards",
+      "params": {
+        "amount": 1
+      }
+    }
+  ],
+  "flavor": "A blade is only as sharp as the one who wields it.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 058/298"
+}

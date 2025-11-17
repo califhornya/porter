@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "Watchful Sentry",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "MIND",
+  "domains": [
+    "MIND"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": []
+  },
+  "stats": {
+    "might": 1,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "DEATHKNELL"
+  ],
+  "tags": [
+    "FRELJORD"
+  ],
+  "rules_text": "Deathknell — Draw 1. (When I die, get the effect.)",
+  "effects": [
+    {
+      "effect": "draw_cards",
+      "params": {
+        "amount": 1
+      }
+    }
+  ],
+  "flavor": "He may never see home again. But because of him, that home still stands.",
+  "artist": "Six More Vodka",
+  "card_id": "OGN 096/298"
+}

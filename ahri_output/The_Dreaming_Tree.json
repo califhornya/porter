@@ -1,0 +1,30 @@
+{
+  "name": "The Dreaming Tree",
+  "supertypes": [],
+  "type": "BATTLEFIELD",
+  "domain": null,
+  "domains": [],
+  "cost": {
+    "energy": null,
+    "power": []
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "The first time you choose a friendly unit with a spell here each turn, draw 1.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "The first time you choose a friendly unit with a spell here each turn, draw 1 card."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Envar Studio",
+  "card_id": "292/298"
+}

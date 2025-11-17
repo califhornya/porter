@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "Wind Wall",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "CALM",
+  "domains": [
+    "CALM"
+  ],
+  "cost": {
+    "energy": 3,
+    "power": [
+      {
+        "domain": "CALM",
+        "amount": 2
+      }
+    ]
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "Reaction (Play any time, even before spells and abilities resolve.)\nCounter a spell.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Counter a spell."
+      }
+    }
+  ],
+  "flavor": "\"Face the wind!\" —Yasuo",
+  "artist": "Max Grecke",
+  "card_id": "OGN 064/298"
+}

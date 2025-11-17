@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "Lecturing Yordle",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "MIND",
+  "domains": [
+    "MIND"
+  ],
+  "cost": {
+    "energy": 3,
+    "power": []
+  },
+  "stats": {
+    "might": 3,
+    "damage": 2,
+    "armor": null
+  },
+  "keywords": [
+    "TANK"
+  ],
+  "tags": [
+    "BANDLE CITY",
+    "YORDLE"
+  ],
+  "rules_text": "Tank (I must be assigned combat damage first.)\nWhen you play me, draw 1.",
+  "effects": [
+    {
+      "effect": "draw_cards",
+      "params": {
+        "amount": 1
+      }
+    }
+  ],
+  "flavor": "\"... poisonous, but I didn't know that at the time. You see ...\"",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 087/298"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "name": "En Garde",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "CALM",
+  "domains": [
+    "CALM"
+  ],
+  "cost": {
+    "energy": 1,
+    "power": []
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "Reaction (Play any time, even before spells and abilities resolve.)\nGive a friendly unit +1 armor this turn, then an additional +1 armor this turn if it is the only unit you control there.",
+  "effects": [
+    {
+      "effect": "buff",
+      "params": {
+        "target": "friendly unit",
+        "armor": 1,
+        "condition": "this turn"
+      }
+    },
+    {
+      "effect": "buff",
+      "params": {
+        "target": "friendly unit",
+        "armor": 1,
+        "condition": "only unit you control there"
+      }
+    }
+  ],
+  "flavor": "\"Is this supposed to be a challenge?\" —Fiora",
+  "artist": "Kudos Productions",
+  "card_id": "OGN046/298"
+}

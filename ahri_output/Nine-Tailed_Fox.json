@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "Nine-Tailed Fox",
+  "supertypes": [
+    "LEGEND"
+  ],
+  "type": "LEGEND",
+  "domain": null,
+  "domains": [
+    "MIND",
+    "CALM"
+  ],
+  "cost": {
+    "energy": null,
+    "power": []
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "AHRI"
+  ],
+  "rules_text": "When an enemy unit attacks a battlefield you control, give it -1 might this turn, to a minimum of 1.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When an enemy unit attacks a battlefield you control, give it -1 might this turn, to a minimum of 1."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Envar Studio",
+  "card_id": "OGN 255/298"
+}

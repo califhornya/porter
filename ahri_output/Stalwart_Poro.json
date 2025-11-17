@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "Stalwart Poro",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "BODY",
+  "domains": [
+    "BODY"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": []
+  },
+  "stats": {
+    "might": 2,
+    "damage": null,
+    "armor": 2
+  },
+  "keywords": [
+    "SHIELD"
+  ],
+  "tags": [
+    "PORO"
+  ],
+  "rules_text": "SHIELD (+1 armor while I'm a defender.)",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "+1 armor while defending"
+      }
+    }
+  ],
+  "flavor": "It suits him.",
+  "artist": "Six More Vodka",
+  "card_id": "OGN-052/298"
+}

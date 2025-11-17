@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "name": "Stupefy",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "MIND",
+  "domains": [
+    "MIND"
+  ],
+  "cost": {
+    "energy": 1,
+    "power": []
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "Give a unit -1 might this turn, to a minimum of 1.\nDraw 1.",
+  "effects": [
+    {
+      "effect": "debuff",
+      "params": {
+        "target": "unit",
+        "amount": -1,
+        "minimum": 1
+      }
+    },
+    {
+      "effect": "draw_cards",
+      "params": {
+        "amount": 1
+      }
+    }
+  ],
+  "flavor": "It's easier to outsmart an opponent with a concussion.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 095/298"
+}

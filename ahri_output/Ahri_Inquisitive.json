@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "Ahri Inquisitive",
+  "supertypes": [
+    "CHAMPION"
+  ],
+  "type": "UNIT",
+  "domain": "MIND",
+  "domains": [
+    "MIND"
+  ],
+  "cost": {
+    "energy": 3,
+    "power": [{
+        "domain": "MIND",
+        "amount": 1
+      }]
+  },
+  "stats": {
+    "might": 3,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "AHRI",
+    "IONIA"
+  ],
+  "rules_text": "When I attack or defend, give an enemy unit here -2 might this turn, to a minimum of 1.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When attacking or defending, reduces an enemy unit's might by 2 to a minimum of 1."
+      }
+    }
+  ],
+  "flavor": "The hunter and the hunted.",
+  "artist": "Six More Vodka",
+  "card_id": "119/298"
+}

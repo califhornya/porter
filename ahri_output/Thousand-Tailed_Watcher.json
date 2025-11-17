@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "Thousand-Tailed Watcher",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "MIND",
+  "domains": [
+    "MIND"
+  ],
+  "cost": {
+    "energy": 7,
+    "power": []
+  },
+  "stats": {
+    "might": 7,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACCELERATE"
+  ],
+  "tags": [
+    "IONIA"
+  ],
+  "rules_text": "Accelerate (You may pay 1 as an additional cost to have me enter ready.)\nWhen you play me, give enemy units -3 this turn, to a minimum of 1.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When played, give enemy units -3 might this turn, to a minimum of 1."
+      }
+    }
+  ],
+  "flavor": "You will know when you've pushed the wilds too far.",
+  "artist": "Six More Vodka",
+  "card_id": "OGN 116/298"
+}

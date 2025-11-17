@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "name": "Find Your Center",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "CALM",
+  "domains": [
+    "CALM"
+  ],
+  "cost": {
+    "energy": 3,
+    "power": [
+      {
+        "domain": "CALM",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACTION"
+  ],
+  "tags": [],
+  "rules_text": "ACTION (Play on your turn or in showdowns.)\nIf an opponent’s score is within 3 points of the Victory Score, this costs 2 less.\nDraw 1 and channel 1 rune exhausted.",
+  "effects": [
+    {
+      "effect": "reduce_cost",
+      "params": {
+        "condition": "opponent's score within 3 points of Victory Score",
+        "amount": 2
+      }
+    },
+    {
+      "effect": "draw_cards",
+      "params": {
+        "amount": 1
+      }
+    },
+    {
+      "effect": "channel_rune",
+      "params": {
+        "amount": 1,
+        "state": "exhausted"
+      }
+    }
+  ],
+  "flavor": "One does not wait for the perfect moment.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 047/298"
+}

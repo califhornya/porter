@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "name": "Blitzcrank Impassive",
+  "supertypes": [
+    "CHAMPION"
+  ],
+  "type": "UNIT",
+  "domain": "CALM",
+  "domains": [
+    "CALM"
+  ],
+  "cost": {
+    "energy": 5,
+    "power": [
+      {
+        "domain": "CALM",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": 5,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "TANK"
+  ],
+  "tags": [
+    "BLITZCRANK",
+    "ZAUN",
+    "MECH"
+  ],
+  "rules_text": "Tank (I must be assigned combat damage first.)\nWhen you play me to a battlefield, you may move an enemy unit to here.\nWhen I hold, return me to my owner's hand.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When played to a battlefield, may move an enemy unit to here. When holding, return to owner's hand."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "League Splash Team",
+  "card_id": "OGN 067/298"
+}

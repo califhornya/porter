@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "Defy",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "CALM",
+  "domains": [
+    "CALM"
+  ],
+  "cost": {
+    "energy": 1,
+    "power": [
+      {
+        "domain": "CALM",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "Reaction (Play any time, even before spells and abilities resolve.)\nCounter a spell that costs no more than 4 and no more than 1 Calm.",
+  "effects": [
+    {
+      "effect": "counter_spell",
+      "params": {
+        "max_energy_cost": 4,
+        "max_power_cost": 1,
+        "domain": "CALM"
+      }
+    }
+  ],
+  "flavor": "\"No.\"",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 045/298"
+}

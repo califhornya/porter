@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "name": "Tasty Faefolk",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "CALM",
+  "domains": [
+    "CALM"
+  ],
+  "cost": {
+    "energy": 7,
+    "power": []
+  },
+  "stats": {
+    "might": 6,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACCELERATE",
+    "DEATHKNELL"
+  ],
+  "tags": [
+    "BANDLE CITY",
+    "FAE"
+  ],
+  "rules_text": "ACCELERATE (You may pay 1+CALM as an additional cost to have me enter ready.)\nDEATHKNELL — Channel 2 runes exhausted and draw 1. (When I die, get the effect.)",
+  "effects": [
+    {
+      "effect": "accelerate",
+      "params": {
+        "additional_cost": "1+CALM"
+      }
+    },
+    {
+      "effect": "deathknell",
+      "params": {
+        "channel_runes": 2,
+        "draw_cards": 1
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Dao Trong Le",
+  "card_id": "OGN-075/298"
+}

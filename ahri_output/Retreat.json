@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "name": "Retreat",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "MIND",
+  "domains": [
+    "MIND"
+  ],
+  "cost": {
+    "energy": 1,
+    "power": []
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "Return a friendly unit to its owner's hand. Its owner channels 1 rune exhausted.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Return a friendly unit to its owner's hand. Its owner channels 1 rune exhausted."
+      }
+    }
+  ],
+  "flavor": "There's always tomorrow.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN - 104/298"
+}

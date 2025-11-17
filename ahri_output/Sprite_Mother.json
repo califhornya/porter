@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "name": "Sprite Mother",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "MIND",
+  "domains": [
+    "MIND"
+  ],
+  "cost": {
+    "energy": 4,
+    "power": [
+      {
+        "domain": "MIND",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": 3,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "FAE"
+  ],
+  "rules_text": "When you play me, play a ready 3 Sprite unit token with TEMPORARY here. (Kill it at the start of its controller’s Beginning Phase, before scoring.)",
+  "effects": [
+    {
+      "effect": "spawn_token",
+      "params": {
+        "token_name": "Sprite",
+        "might": 3,
+        "keywords": [
+          "Temporary"
+        ]
+      }
+    }
+  ],
+  "flavor": "“Come, little ones.”",
+  "artist": "Envar Studio",
+  "card_id": "OGN - 106/298"
+}
