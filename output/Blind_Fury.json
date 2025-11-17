@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "Blind Fury",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 4,
+    "power": [
+      {
+        "domain": "FURY",
+        "amount": 2
+      }
+    ]
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "(Play on your turn or in showdowns.)\nEach opponent reveals the top card of their Main Deck. Choose one and play it, ignoring its cost. Then recycle the rest.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Each opponent reveals the top card of their Main Deck. Choose one and play it, ignoring its cost. Then recycle the rest."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Six More Vodka",
+  "card_id": "OGN 025/298"
+}

@@ -3,13 +3,13 @@
   "name": "Guardian Angel",
   "supertypes": [],
   "type": "GEAR",
-  "domain": "ORDER",
+  "domain": "CALM",
   "domains": [
-    "ORDER"
+    "CALM"
   ],
   "cost": {
     "energy": 2,
-    "power": null
+    "power": []
   },
   "stats": {
     "might": null,
@@ -20,18 +20,12 @@
   "tags": [
     "EQUIPMENT"
   ],
-  "rules_text": "Equip (🛡️: Attach this to a unit you control.)\nIf I would die, kill Guardian Angel instead. Heal me, exhaust me, and recall me.",
+  "rules_text": "Equip (recycle 1 calm): Attach this to a unit you control.\nIf I would die, kill Guardian Angel instead. Heal me, exhaust me, and recall me.",
   "effects": [
     {
       "effect": "custom",
       "params": {
-        "summary": "Equip (🛡️: Attach this to a unit you control.)"
-      }
-    },
-    {
-      "effect": "custom",
-      "params": {
-        "summary": "If I would die, kill Guardian Angel instead. Heal me, exhaust me, and recall me."
+        "summary": "If the equipped unit would die, kill Guardian Angel instead, heal the unit, exhaust it, and recall it."
       }
     }
   ],

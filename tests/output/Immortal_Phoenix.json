@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "name": "Immortal Phoenix",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 3,
+    "power": []
+  },
+  "stats": {
+    "might": 3,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ASSAULT 2"
+  ],
+  "tags": [
+    "SPIRIT"
+  ],
+  "rules_text": "Assault 2 (+2 might while I'm an attacker.)\nWhen you kill a unit with a spell, you may pay 1 Fury to play me from your trash.",
+  "effects": [
+    {
+      "effect": "buff",
+      "params": {
+        "amount": 2,
+        "condition": "while attacking"
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When you kill a unit with a spell, you may pay 1 Fury to play this card from your trash."
+      }
+    }
+  ],
+  "flavor": "The memory of every death fuels even brighter flames.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 037/298"
+}

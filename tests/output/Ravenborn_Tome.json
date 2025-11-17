@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "name": "Ravenborn Tome",
+  "supertypes": [],
+  "type": "GEAR",
+  "domain": null,
+  "domains": [
+    "BODY",
+    "ORDER"
+  ],
+  "cost": {
+    "energy": 3,
+    "power": [
+      {
+        "domain": "BODY",
+        "amount": 1
+      },
+      {
+        "domain": "ORDER",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "The next spell you play deals 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "The next spell you play deals 1 Bonus Damage."
+      }
+    }
+  ],
+  "flavor": "The book is bound in flame-resistant materials, for obvious reasons.",
+  "artist": "Polar Engine Studio",
+  "card_id": "OGN 032/298"
+}

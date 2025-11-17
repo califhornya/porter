@@ -3,13 +3,13 @@
   "name": "Long Sword",
   "supertypes": [],
   "type": "GEAR",
-  "domain": "BODY",
+  "domain": "FURY",
   "domains": [
-    "BODY"
+    "FURY"
   ],
   "cost": {
     "energy": 2,
-    "power": "BODY"
+    "power": []
   },
   "stats": {
     "might": null,
@@ -27,11 +27,11 @@
     {
       "effect": "custom",
       "params": {
-        "summary": "Has Reaction. When played, attach to a unit you control. Can be equipped to a unit."
+        "summary": "Quick-Draw and Equip to a unit you control."
       }
     }
   ],
   "flavor": "Efforts to create the Longer Sword quickly ran into diminishing returns.",
   "artist": "Dark Glow",
-  "card_id": "SFD ・022/221"
+  "card_id": "SFD 022/221"
 }

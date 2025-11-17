@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "name": "Raging Firebrand",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 6,
+    "power": []
+  },
+  "stats": {
+    "might": 4,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "MOUNT TARGON",
+    "DRAGON"
+  ],
+  "rules_text": "When you play me, the next spell you play this turn costs 5 less.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When played, reduces the cost of the next spell this turn by 5."
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "JiHun Lee",
+  "card_id": "OGN031/298"
+}

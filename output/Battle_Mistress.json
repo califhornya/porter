@@ -7,12 +7,12 @@
   "type": "LEGEND",
   "domain": null,
   "domains": [
-    "FURY",
+    "ORDER",
     "CHAOS"
   ],
   "cost": {
     "energy": null,
-    "power": null
+    "power": []
   },
   "stats": {
     "might": null,
@@ -28,11 +28,11 @@
     {
       "effect": "custom",
       "params": {
-        "summary": "When you recycle a rune, you may exhaust to play a Gold gear token exhausted. When enemy units die, ready me."
+        "summary": "When you recycle a rune, you may exhaust this card to play a Gold gear token exhausted. When one or more enemy units die, ready this card."
       }
     }
   ],
   "flavor": null,
   "artist": "Zhongqi Li",
-  "card_id": "SFD-203/221"
+  "card_id": "SFD • 203/221"
 }

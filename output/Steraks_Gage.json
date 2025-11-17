@@ -3,13 +3,13 @@
   "name": "Sterak’s Gage",
   "supertypes": [],
   "type": "GEAR",
-  "domain": "BODY",
+  "domain": "CALM",
   "domains": [
-    "BODY"
+    "CALM"
   ],
   "cost": {
     "energy": 3,
-    "power": null
+    "power": []
   },
   "stats": {
     "might": null,
@@ -18,27 +18,20 @@
   },
   "keywords": [
     "QUICK-DRAW",
-    "REACTION"
+    "REACTION",
+    "EQUIP"
   ],
-  "tags": [
-    "EQUIPMENT"
-  ],
-  "rules_text": "QUICK-DRAW (This has REACTION. When you play it, attach it to a unit you control.)\nEQUIP (☉): Attach this to a unit you control.",
+  "tags": [],
+  "rules_text": "Quick-Draw (This has Reaction. When you play it, attach it to a unit you control.)\nEquip: Attach this to a unit you control.",
   "effects": [
     {
       "effect": "custom",
       "params": {
-        "summary": "QUICK-DRAW (This has REACTION. When you play it, attach it to a unit you control.)"
-      }
-    },
-    {
-      "effect": "custom",
-      "params": {
-        "summary": "EQUIP (☉): Attach this to a unit you control."
+        "summary": "Quick-Draw: This has Reaction. When you play it, attach it to a unit you control. Equip: Attach this to a unit you control."
       }
     }
   ],
   "flavor": "Claws for concern.",
   "artist": "Dark Glow",
-  "card_id": "SFD•056/221"
+  "card_id": "SFD-056/221"
 }

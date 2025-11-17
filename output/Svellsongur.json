@@ -9,7 +9,7 @@
   ],
   "cost": {
     "energy": 3,
-    "power": null
+    "power": []
   },
   "stats": {
     "might": null,
@@ -18,22 +18,16 @@
   },
   "keywords": [],
   "tags": [],
-  "rules_text": "EQUIP (1  , 1 ): Attach this to a unit you control.)\nAs this is attached to a unit, copy that unit’s text to this Equipment’s effect text for as long as this is attached to it.",
+  "rules_text": "Equip 1 (1 BODY: Attach this to a unit you control.)\nAs this is attached to a unit, copy that unit’s text to this Equipment’s effect text for as long as this is attached to it.",
   "effects": [
     {
       "effect": "custom",
       "params": {
-        "summary": "EQUIP (1  , 1 ): Attach this to a unit you control.)"
-      }
-    },
-    {
-      "effect": "custom",
-      "params": {
-        "summary": "As this is attached to a unit, copy that unit’s text to this Equipment’s effect text for as long as this is attached to it."
+        "summary": "Attach to a unit and copy its text to this Equipment's effect text."
       }
     }
   ],
   "flavor": "“Only the greatest Freljord heroes have weapons made of True Ice!” —Nunu",
   "artist": "Envar Studio",
-  "card_id": "SFD ・ 059/221"
+  "card_id": "SFD-059/221"
 }

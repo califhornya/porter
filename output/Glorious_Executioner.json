@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "Draven Glorious Executioner",
+  "name": "Glorious Executioner",
   "supertypes": [
     "LEGEND"
   ],
@@ -12,7 +12,7 @@
   ],
   "cost": {
     "energy": null,
-    "power": null
+    "power": []
   },
   "stats": {
     "might": null,
@@ -26,13 +26,14 @@
   "rules_text": "When you win a combat, draw 1. (You win if only your units remain after combat.)",
   "effects": [
     {
-      "effect": "custom",
+      "effect": "draw_cards",
       "params": {
-        "summary": "When you win a combat, draw 1."
+        "amount": 1,
+        "condition": "win_combat"
       }
     }
   ],
   "flavor": null,
   "artist": "Pandart Studio",
-  "card_id": "SFD • 185/221"
+  "card_id": "SFD-185/221"
 }

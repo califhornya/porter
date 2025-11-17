@@ -2,42 +2,49 @@
   "schema_version": 1,
   "name": "Emperor of the Sands",
   "supertypes": [
-    "LEGEND",
-    "AZIR"
+    "LEGEND"
   ],
   "type": "LEGEND",
   "domain": null,
   "domains": [
-    "BODY",
-    "ORDER"
+    "ORDER",
+    "CALM"
   ],
   "cost": {
-    "energy": 1,
-    "power": "ORDER"
+    "energy": null,
+    "power": []
   },
   "stats": {
     "might": null,
     "damage": null,
     "armor": null
   },
-  "keywords": [],
-  "tags": [],
-  "rules_text": "Your Sand Soldiers have WEAPONMASTER.\n1, 🕱: Play a 2🕱 Sand Soldier unit token to your base. Use only if you’ve played an Equipment this turn.",
+  "keywords": [
+    "WEAPONMASTER"
+  ],
+  "tags": [
+    "AZIR"
+  ],
+  "rules_text": "Your Sand Soldiers have WEAPONMASTER.\n1, T: Play a 2/1 Sand Soldier unit token to your base. Use only if you’ve played an Equipment this turn.",
   "effects": [
     {
-      "effect": "custom",
+      "effect": "grant_keyword",
       "params": {
-        "summary": "Your Sand Soldiers have WEAPONMASTER."
+        "target": "Sand Soldiers",
+        "keyword": "WEAPONMASTER"
       }
     },
     {
-      "effect": "custom",
+      "effect": "spawn_token",
       "params": {
-        "summary": "1, 🕱: Play a 2🕱 Sand Soldier unit token to your base. Use only if you’ve played an Equipment this turn."
+        "cost": 1,
+        "condition": "if you’ve played an Equipment this turn",
+        "token": "2/1 Sand Soldier",
+        "location": "your base"
       }
     }
   ],
   "flavor": null,
-  "artist": "©2025RGI",
-  "card_id": "SFD • 197/221"
+  "artist": "2025RGI",
+  "card_id": "SFD 197/221"
 }

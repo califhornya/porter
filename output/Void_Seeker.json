@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "Void Seeker",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 3,
+    "power": [
+      {
+        "domain": "FURY",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ACTION"
+  ],
+  "tags": [],
+  "rules_text": "ACTION (Play on your turn or in showdowns.)\nDeal 4 to a unit at a battlefield. Draw 1.",
+  "effects": [
+    {
+      "effect": "deal_damage",
+      "params": {
+        "amount": 4,
+        "target": "unit at a battlefield"
+      }
+    },
+    {
+      "effect": "draw_cards",
+      "params": {
+        "amount": 1
+      }
+    }
+  ],
+  "flavor": "\"It's a good day for a hunt.\"\n—Kai'Sa",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 024/298"
+}

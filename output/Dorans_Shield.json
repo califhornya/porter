@@ -1,9 +1,7 @@
 {
   "schema_version": 1,
   "name": "Doran’s Shield",
-  "supertypes": [
-    "GEAR"
-  ],
+  "supertypes": [],
   "type": "GEAR",
   "domain": "CALM",
   "domains": [
@@ -11,7 +9,7 @@
   ],
   "cost": {
     "energy": 1,
-    "power": null
+    "power": []
   },
   "stats": {
     "might": null,
@@ -19,26 +17,23 @@
     "armor": 1
   },
   "keywords": [
-    "EQUIP",
     "TANK"
   ],
   "tags": [],
-  "rules_text": "Equip (1): Attach this to a unit you control.\nTank (I must be assigned combat damage first.)",
+  "rules_text": "Equip (Q: Attach this to a unit you control.)\nTank (I must be assigned combat damage first.)",
   "effects": [
     {
-      "effect": "custom",
+      "effect": "equip",
       "params": {
-        "summary": "Equip (1): Attach this to a unit you control."
+        "target": "unit you control"
       }
     },
     {
-      "effect": "custom",
-      "params": {
-        "summary": "Tank (I must be assigned combat damage first.)"
-      }
+      "effect": "tank",
+      "params": {}
     }
   ],
   "flavor": null,
-  "artist": "暗发岛 Dark Glow",
-  "card_id": "SFD · 033/221"
+  "artist": "Dark Glow",
+  "card_id": "SFD-033/221"
 }

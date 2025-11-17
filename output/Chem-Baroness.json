@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "name": "Renata Glasc Chem-Baroness",
+  "name": "Chem-Baroness",
   "supertypes": [
     "LEGEND"
   ],
   "type": "LEGEND",
   "domain": null,
   "domains": [
-    "ORDER",
-    "CHAOS"
+    "MIND",
+    "ORDER"
   ],
   "cost": {
-    "energy": 3,
-    "power": null
+    "energy": null,
+    "power": []
   },
   "stats": {
     "might": null,
@@ -20,19 +20,15 @@
     "armor": null
   },
   "keywords": [],
-  "tags": [],
+  "tags": [
+    "RENATA GLASC"
+  ],
   "rules_text": "When you or an ally hold, you may exhaust me to play a Gold gear token exhausted.\nWhile your score is within 3 points of the Victory Score, your Gold ADD an additional 1.",
   "effects": [
     {
       "effect": "custom",
       "params": {
-        "summary": "When you or an ally hold, you may exhaust me to play a Gold gear token exhausted."
-      }
-    },
-    {
-      "effect": "custom",
-      "params": {
-        "summary": "While your score is within 3 points of the Victory Score, your Gold ADD an additional 1."
+        "summary": "Exhaust to play a Gold gear token exhausted. Gain additional Gold if score is within 3 points of Victory Score."
       }
     }
   ],

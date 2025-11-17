@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "name": "Brynhir Thundersong",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 6,
+    "power": []
+  },
+  "stats": {
+    "might": 5,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "FRELJORD"
+  ],
+  "rules_text": "When you play me, opponents can't play cards this turn.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "When played, opponents can't play cards this turn."
+      }
+    }
+  ],
+  "flavor": "\"Silence. The sky speaks.\"",
+  "artist": "Envar Studio",
+  "card_id": "OGN026/298"
+}

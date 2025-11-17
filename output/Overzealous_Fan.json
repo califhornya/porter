@@ -3,13 +3,13 @@
   "name": "Overzealous Fan",
   "supertypes": [],
   "type": "UNIT",
-  "domain": "MIND",
+  "domain": "CHAOS",
   "domains": [
-    "MIND"
+    "CHAOS"
   ],
   "cost": {
     "energy": 2,
-    "power": null
+    "power": []
   },
   "stats": {
     "might": 2,
@@ -25,7 +25,7 @@
     {
       "effect": "custom",
       "params": {
-        "summary": "When I defend, you may kill me to move an attacking unit to its base."
+        "summary": "When defending, may kill this unit to move an attacking unit to its base."
       }
     }
   ],

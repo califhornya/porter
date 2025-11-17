@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "name": "Tryndamere Barbarian",
+  "supertypes": [
+    "CHAMPION"
+  ],
+  "type": "UNIT",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 7,
+    "power": [
+      {
+        "domain": "FURY",
+        "amount": 2
+      }
+    ]
+  },
+  "stats": {
+    "might": 8,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [
+    "TRYNDAMERE",
+    "FRELJORD"
+  ],
+  "rules_text": "When I conquer after an attack, if you assigned 5 or more excess damage to enemy units, you score 1 point.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Scores 1 point if 5 or more excess damage is assigned to enemy units after conquering."
+      }
+    }
+  ],
+  "flavor": "\"You never stood a chance.\"",
+  "artist": "Six More Vodka",
+  "card_id": "OGN 034/298"
+}

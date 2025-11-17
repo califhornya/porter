@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "name": "Vayne Hunter",
+  "supertypes": [
+    "CHAMPION"
+  ],
+  "type": "UNIT",
+  "domain": "BODY",
+  "domains": [
+    "BODY"
+  ],
+  "cost": {
+    "energy": 4,
+    "power": [
+      {
+        "domain": "BODY",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": 2,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "ASSAULT 3"
+  ],
+  "tags": [
+    "VAYNE",
+    "DEMACIA"
+  ],
+  "rules_text": "Assault 3 (+3 while I'm an attacker.)\nIf an opponent controls a battlefield, I enter ready.\nWhen I conquer, you may pay 1 to return me to my owner's hand.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Gains +3 might while attacking. Enters ready if opponent controls a battlefield. Can return to owner's hand when conquering by paying 1."
+      }
+    }
+  ],
+  "flavor": "On wings of night.",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 035/298"
+}

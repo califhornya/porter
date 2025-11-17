@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "name": "Kadregrin the Infernal",
+  "supertypes": [],
+  "type": "UNIT",
+  "domain": null,
+  "domains": [
+    "BODY",
+    "FURY"
+  ],
+  "cost": {
+    "energy": 9,
+    "power": [
+      {
+        "domain": "BODY",
+        "amount": 1
+      },
+      {
+        "domain": "FURY",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": 9,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "MIGHTY"
+  ],
+  "tags": [
+    "DEMACIA",
+    "DRAGON"
+  ],
+  "rules_text": "When you play me, draw 1 for each of your Mighty units. (A unit is Mighty while it has 5+ might.)",
+  "effects": [
+    {
+      "effect": "draw_cards",
+      "params": {
+        "amount": 1,
+        "condition": "for each of your Mighty units"
+      }
+    }
+  ],
+  "flavor": "First among flames.",
+  "artist": "Six More Vodka",
+  "card_id": "OGN 038/298"
+}

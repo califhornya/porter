@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "Disintegrate",
+  "name": "Void Seeker",
   "supertypes": [],
   "type": "SPELL",
   "domain": "FURY",
@@ -8,8 +8,13 @@
     "FURY"
   ],
   "cost": {
-    "energy": 4,
-    "power": "FURY"
+    "energy": 3,
+    "power": [
+      {
+        "domain": "FURY",
+        "amount": 1
+      }
+    ]
   },
   "stats": {
     "might": null,
@@ -20,24 +25,23 @@
     "ACTION"
   ],
   "tags": [],
-  "rules_text": "Action (Play on your turn or in showdowns.)\nDeal 3 to a unit at a battlefield. If this kills it, draw 1.",
+  "rules_text": "ACTION (Play on your turn or in showdowns.)\nDeal 4 to a unit at a battlefield. Draw 1.",
   "effects": [
     {
       "effect": "deal_damage",
       "params": {
-        "amount": 3,
+        "amount": 4,
         "target": "unit at a battlefield"
       }
     },
     {
       "effect": "draw_cards",
       "params": {
-        "amount": 1,
-        "condition": "if this kills it"
+        "amount": 1
       }
     }
   ],
-  "flavor": "\"Ashes, ashes, they all fall down.\" —Annie",
+  "flavor": "“It’s a good day for a hunt.” —Kai’Sa",
   "artist": "Kudos Productions",
-  "card_id": "OGN-005/298"
+  "card_id": "OGN 024/298"
 }

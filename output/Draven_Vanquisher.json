@@ -5,13 +5,14 @@
     "CHAMPION"
   ],
   "type": "UNIT",
-  "domain": "ORDER",
+  "domain": null,
   "domains": [
-    "ORDER"
+    "FURY",
+    "CHAOS"
   ],
   "cost": {
     "energy": 4,
-    "power": "ORDER"
+    "power": []
   },
   "stats": {
     "might": 4,
@@ -23,16 +24,25 @@
     "DRAVEN",
     "NOXUS"
   ],
-  "rules_text": "When I win a combat, play a Gold gear token exhausted.\nWhen I attack or defend, you may pay . If you do, give me +2 this turn.",
+  "rules_text": "When I win a combat, play a Gold gear token exhausted.\nWhen I attack or defend, you may pay 1. If you do, give me +2 this turn.",
   "effects": [
     {
-      "effect": "custom",
+      "effect": "spawn_token",
       "params": {
-        "summary": "Plays a Gold gear token exhausted when winning a combat. May pay to gain +2 when attacking or defending."
+        "token": "Gold gear",
+        "state": "exhausted"
+      }
+    },
+    {
+      "effect": "buff",
+      "params": {
+        "condition": "attack_or_defend",
+        "cost": 1,
+        "buff": "+2"
       }
     }
   ],
   "flavor": "“Man, I’m good.”",
   "artist": "Six More Vodka",
-  "card_id": "SFD 020/221"
+  "card_id": "SFD • 020/221"
 }

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "Falling Star",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "FURY",
+  "domains": [
+    "FURY"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": [
+      {
+        "domain": "FURY",
+        "amount": 2
+      }
+    ]
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [],
+  "tags": [],
+  "rules_text": "Do this twice:\nDeal 3 to a unit. (You can choose different units.)",
+  "effects": [
+    {
+      "effect": "deal_damage",
+      "params": {
+        "amount": 3,
+        "target": "unit",
+        "repeat": 2
+      }
+    }
+  ],
+  "flavor": null,
+  "artist": "Kudos Productions",
+  "card_id": "029/298"
+}

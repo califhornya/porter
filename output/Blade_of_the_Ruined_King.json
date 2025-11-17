@@ -9,7 +9,7 @@
   ],
   "cost": {
     "energy": 3,
-    "power": null
+    "power": []
   },
   "stats": {
     "might": null,
@@ -20,16 +20,16 @@
     "EQUIP"
   ],
   "tags": [],
-  "rules_text": "EQUIP — Kill a friendly unit (Pay the cost: Attach this to a unit you control.)",
+  "rules_text": "Equip — Kill a friendly unit (Pay the cost: Attach this to a unit you control.)",
   "effects": [
     {
       "effect": "custom",
       "params": {
-        "summary": "EQUIP — Kill a friendly unit (Pay the cost: Attach this to a unit you control.)"
+        "summary": "Equip by killing a friendly unit and attach this to a unit you control."
       }
     }
   ],
-  "flavor": "\"You are not the hero of this tale.\"\n—Viego",
-  "artist": "霞宙岛Dark Glow",
-  "card_id": "SFD • 178/221"
+  "flavor": "\"You are not the hero of this tale.\" —Viego",
+  "artist": "Dark Glow",
+  "card_id": "SFD 178/221"
 }

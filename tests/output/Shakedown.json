@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "Shakedown",
+  "supertypes": [],
+  "type": "SPELL",
+  "domain": "MIND",
+  "domains": [
+    "MIND"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": [
+      {
+        "domain": "MIND",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": null,
+    "damage": null,
+    "armor": null
+  },
+  "keywords": [
+    "REACTION"
+  ],
+  "tags": [],
+  "rules_text": "Reaction (Play any time, even before spells and abilities resolve.)\nChoose an enemy unit. Deal 6 to it unless its controller has you draw 2.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "summary": "Choose an enemy unit. Deal 6 to it unless its controller has you draw 2."
+      }
+    }
+  ],
+  "flavor": "\"Blink once for yes.\"",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 033/298"
+}

@@ -9,7 +9,7 @@
   ],
   "cost": {
     "energy": 2,
-    "power": "CALM"
+    "power": []
   },
   "stats": {
     "might": null,

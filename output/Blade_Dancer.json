@@ -7,12 +7,12 @@
   "type": "LEGEND",
   "domain": null,
   "domains": [
-    "BODY",
+    "CALM",
     "CHAOS"
   ],
   "cost": {
     "energy": null,
-    "power": null
+    "power": []
   },
   "stats": {
     "might": null,
@@ -23,18 +23,12 @@
   "tags": [
     "IRELIA"
   ],
-  "rules_text": "When you choose a friendly unit, you may exhaust me and pay 🔥 to ready it.\nWhen you conquer, you may pay 1 to ready me.",
+  "rules_text": "When you choose a friendly unit, you may exhaust me and pay to ready it.\nWhen you conquer, you may pay 1 to ready me.",
   "effects": [
     {
       "effect": "custom",
       "params": {
-        "summary": "When you choose a friendly unit, you may exhaust me and pay 🔥 to ready it."
-      }
-    },
-    {
-      "effect": "custom",
-      "params": {
-        "summary": "When you conquer, you may pay 1 to ready me."
+        "summary": "Exhaust to ready a friendly unit by paying a cost. Pay 1 to ready when conquering."
       }
     }
   ],

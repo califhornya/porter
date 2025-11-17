@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "name": "Vi Destructive",
+  "supertypes": [
+    "CHAMPION"
+  ],
+  "type": "UNIT",
+  "domain": "ORDER",
+  "domains": [
+    "ORDER"
+  ],
+  "cost": {
+    "energy": 2,
+    "power": [
+      {
+        "domain": "FURY",
+        "amount": 1
+      }
+    ]
+  },
+  "stats": {
+    "might": 2,
+    "damage": 3,
+    "armor": null
+  },
+  "keywords": [
+    "GANKING"
+  ],
+  "tags": [
+    "VI",
+    "PILTOVER"
+  ],
+  "rules_text": "Ganking (I can move from battlefield to battlefield.)\nRecycle 1 from your trash: Give me +1 this turn.",
+  "effects": [
+    {
+      "effect": "move",
+      "params": {
+        "type": "Ganking"
+      }
+    },
+    {
+      "effect": "buff",
+      "params": {
+        "source": "Recycle",
+        "amount": 1,
+        "duration": "this turn"
+      }
+    }
+  ],
+  "flavor": "“Punch first. Ask questions while punching.”",
+  "artist": "Kudos Productions",
+  "card_id": "OGN 036/298"
+}
