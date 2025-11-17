@@ -198,6 +198,32 @@ def override_champion_domains(data: Dict[str, Any]) -> Dict[str, Any]:
     return data
 
 
+def _apply_spell_power_domains(processed: Dict[str, Any]) -> Dict[str, Any]:
+    """For spells, derive domains directly from power cost order."""
+
+    card_type = str(processed.get("type") or "").strip().upper()
+    if card_type != "SPELL":
+        return processed
+
+    power_items = processed.get("cost", {}).get("power") or []
+    if not isinstance(power_items, Iterable):
+        return processed
+
+    domains_from_power = []
+    for item in power_items:
+        domain = item.get("domain") if isinstance(item, dict) else None
+        if domain:
+            domains_from_power.append(domain)
+
+    domains_from_power = _canonicalize_terms(domains_from_power, DOMAIN_SYNONYMS)
+    if not domains_from_power:
+        return processed
+
+    processed["domains"] = domains_from_power
+    processed["domain"] = domains_from_power[0] if len(domains_from_power) == 1 else None
+    return processed
+
+
 def _apply_domain_color_hint(
     processed: Dict[str, Any], color_hint: Optional[DomainColorSample]
 ) -> Dict[str, Any]:
@@ -325,6 +351,7 @@ def post_process_card_data(
     # Apply champion domain overrides
     processed = override_signature_spell_domains(processed)
     processed = override_champion_domains(processed)
+    processed = _apply_spell_power_domains(processed)
 
     # Normalize effects
     processed["effects"] = normalize_effects(processed.get("effects", []))

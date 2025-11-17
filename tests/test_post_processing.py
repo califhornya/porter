@@ -84,6 +84,36 @@ def test_detect_signature_spell_reads_tags_and_text():
     assert detect_signature_spell(raw) == "Jinx"
 
 
+def test_spell_domains_follow_power_cost_order():
+    raw = {
+        "name": "Chaotic Burst",
+        "type": "SPELL",
+        "domain": "BODY",
+        "domains": ["ORDER"],
+        "cost": {
+            "energy": 2,
+            "power": [
+                {"domain": "chaos", "amount": 1},
+                {"domain": "Fury", "amount": 2},
+            ],
+        },
+        "stats": {"might": None, "damage": None, "armor": None},
+        "keywords": [],
+        "tags": [],
+        "rules_text": "",
+        "effects": [],
+        "flavor": None,
+        "artist": None,
+        "card_id": "TEST-004",
+    }
+
+    processed = post_process_card_data(raw)
+    card = CardData.model_validate(processed)
+
+    assert card.domain is None
+    assert card.domains == ["CHAOS", "FURY"]
+
+
 def test_legend_allows_missing_energy_cost():
     raw = {
         "name": "Storm Peak",
