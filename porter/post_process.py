@@ -208,6 +208,51 @@ def post_process_card_data(data: Dict[str, Any]) -> Dict[str, Any]:
     processed.setdefault("effects", [])
     processed.setdefault("rules_text", "")
 
+    cost_raw = processed.get("cost") or {}
+    if not isinstance(cost_raw, dict):
+        cost_raw = {}
+
+    raw_energy = cost_raw.get("energy")
+    try:
+        energy = int(raw_energy) if raw_energy is not None else None
+    except (TypeError, ValueError):
+        energy = None
+
+    power_raw = cost_raw.get("power", [])
+    if power_raw is None:
+        power_iterable = []
+    elif isinstance(power_raw, list):
+        power_iterable = power_raw
+    else:
+        power_iterable = [power_raw]
+
+    power_items: List[Dict[str, Any]] = []
+    for entry in power_iterable:
+        if isinstance(entry, dict):
+            domain_raw = entry.get("domain")
+            amount_raw = entry.get("amount", 1)
+        else:
+            domain_raw = entry
+            amount_raw = 1
+
+        domains = (
+            _canonicalize_terms([domain_raw], DOMAIN_SYNONYMS) if domain_raw else []
+        )
+        if not domains:
+            continue
+
+        try:
+            amount = int(amount_raw)
+        except (TypeError, ValueError):
+            continue
+
+        if amount < 1:
+            continue
+
+        power_items.append({"domain": domains[0], "amount": amount})
+
+    processed["cost"] = {"energy": energy, "power": power_items}
+
     # Canonicalize list-like fields
     processed["keywords"] = _canonicalize_terms(
         processed.get("keywords") or [], KEYWORD_SYNONYMS

@@ -1,20 +1,24 @@
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
+
+
+class PowerCostItem(BaseModel):
+    """A single power icon requirement."""
+
+    domain: str
+    amount: int = Field(..., ge=1)
 
 
 class CardCost(BaseModel):
     """Energy and power cost of a card.
 
-    - energy: generic energy cost (top-left number).
-    - power: single-domain power requirement, or null if:
-        * the card has no power cost, or
-        * the power cost uses multiple domains (e.g. Fury + Body).
-      In those cases, use the card's `domains` list to know which domains it belongs to.
+    - energy: generic energy cost (top-left number). Can be omitted for Legends.
+    - power: list of domain requirements extracted directly from the power icons.
     """
 
-    energy: int = Field(..., ge=0)
-    power: Optional[str] = None
+    energy: Optional[int] = Field(default=None, ge=0)
+    power: List[PowerCostItem] = Field(default_factory=list)
 
 
 class CardStats(BaseModel):
@@ -68,3 +72,10 @@ class CardData(BaseModel):
     flavor: Optional[str] = None
     artist: Optional[str] = None
     card_id: Optional[str] = None
+
+    @model_validator(mode="after")
+    def _validate_cost(self) -> "CardData":
+        if self.type != "LEGEND" and self.cost.energy is None:
+            raise ValueError("energy cost is required for non-legend cards")
+
+        return self

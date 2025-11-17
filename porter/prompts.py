@@ -10,19 +10,24 @@ You receive an image of a single Riftbound card. Your job:
 
 JSON schema (all keys required unless marked optional):
 
-{
-  "name": "string",
+  {
+    "name": "string",
 
-  "supertypes": [ "CHAMPION", "SIGNATURE", "TOKEN", ... ],
-  "type": "UNIT | SPELL | GEAR | RUNE | LEGEND | BATTLEFIELD",
+    "supertypes": [ "CHAMPION", "SIGNATURE", "TOKEN", ... ],
+    "type": "UNIT | SPELL | GEAR | RUNE | LEGEND | BATTLEFIELD",
 
-  "domain": "FURY | CALM | MIND | BODY | CHAOS | ORDER | null",
-  "domains": [ "FURY", "CALM", "MIND", "BODY", "CHAOS", "ORDER" ],
+    "domain": "FURY | CALM | MIND | BODY | CHAOS | ORDER | null",
+    "domains": [ "FURY", "CALM", "MIND", "BODY", "CHAOS", "ORDER" ],
 
-  "cost": {
-    "energy": integer,
-    "power": "FURY | CALM | MIND | BODY | CHAOS | ORDER | null"
-  },
+    "cost": {
+      "energy": integer or null,
+      "power": [
+        {
+          "domain": "FURY | CALM | MIND | BODY | CHAOS | ORDER",
+          "amount": integer
+        }
+      ]
+    },
 
   "stats": {
     "might": integer or null,
@@ -65,13 +70,14 @@ CARD TYPE RULES:
     - "CHAMPION" MUST be included in "supertypes".
   - Do NOT ever output "CHAMPION UNIT" as a type.
 
-- Legends:
-  - Legend cards are type "LEGEND".
-  - Legends are not units.
-  - Legends do NOT get "CHAMPION" in "supertypes".
-  - Both Legends and their corresponding Champion Units share the same Champion tag
-    (for example "Volibear") which must appear in "tags".
-  - Legends have "null" energy and power costs.
+  - Legends:
+    - Legend cards are type "LEGEND".
+    - Legends are not units.
+    - Legends do NOT get "CHAMPION" in "supertypes".
+    - Both Legends and their corresponding Champion Units share the same Champion tag
+      (for example "Volibear") which must appear in "tags".
+    - Legends usually have no energy gem; set "cost.energy" to null when no energy is shown.
+    - Legends typically have no power icons; if none are visible, set "cost.power" to [].
 
 SUPERTYPES:
 
@@ -140,10 +146,17 @@ OUTPUT BOTH DOMAIN FIELDS CONSISTENTLY:
 
 COST RULES:
 
-- "cost.energy" is the numeric energy cost in the upper-left of the card (0 if none).
-- "cost.power" is:
-  - The single domain of power required, if there is exactly one domain in the power cost.
-  - null if there is no power cost or if the power cost uses multiple domains.
+- "cost.energy" is the numeric energy cost in the upper-left of the card. If the card has no
+  energy gem, use null.
+- "cost.power" is a list of power icons exactly as printed on the card. For each icon or set
+  of identical icons, output an object with:
+  - "domain": the icon's domain (FURY, CALM, MIND, BODY, CHAOS, ORDER)
+  - "amount": how many times that domain appears
+- If a card has no power icons, set "cost.power" to [].
+- If a card shows two identical domain icons (for example BODY BODY), output a single entry
+  with amount 2.
+- If the card shows mixed domains (for example FURY + CHAOS), output separate entries for each
+  domain in left-to-right visual order.
 
 STATS:
 

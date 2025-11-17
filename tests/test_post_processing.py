@@ -4,7 +4,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from porter.cli import clean_filename
-from porter.models import CardData
+from porter.models import CardData, PowerCostItem
 from porter.post_process import detect_signature_spell, post_process_card_data
 
 
@@ -13,7 +13,7 @@ def test_post_process_card_data_normalizes_terms_and_effects():
         "name": "Test Card",
         "type": "UNIT",
         "domain": "FURY",
-        "cost": {"energy": 3, "power": None},
+        "cost": {"energy": "3", "power": [{"domain": "body", "amount": 2}]},
         "stats": {"might": 2, "damage": 1, "armor": 0},
         "keywords": ["gear", "Legend", "legend"],
         "tags": ["equipment", "Unit", "EQUIPMENT"],
@@ -31,6 +31,8 @@ def test_post_process_card_data_normalizes_terms_and_effects():
     card = CardData.model_validate(processed)
 
     assert card.schema_version == 1
+    assert card.cost.energy == 3
+    assert card.cost.power == [PowerCostItem(domain="BODY", amount=2)]
     assert card.keywords == ["GEAR", "LEGEND"]
     assert card.tags == ["EQUIPMENT", "UNIT"]
     assert card.effects[0].effect == "score_vp"
@@ -44,7 +46,7 @@ def test_post_process_card_data_two_domains_domain_none():
         "type": "UNIT",
         "domain": "Fury",
         "domains": ["Body"],
-        "cost": {"energy": 4, "power": None},
+        "cost": {"energy": 4, "power": []},
         "stats": {"might": 3, "damage": None, "armor": None},
         "keywords": [],
         "tags": [],
@@ -68,7 +70,7 @@ def test_detect_signature_spell_reads_tags_and_text():
         "type": "SPELL",
         "domain": None,
         "domains": [],
-        "cost": {"energy": 1, "power": None},
+        "cost": {"energy": 1, "power": []},
         "stats": {"might": None, "damage": None, "armor": None},
         "keywords": [],
         "tags": ["Signature", "Jinx"],
@@ -80,6 +82,29 @@ def test_detect_signature_spell_reads_tags_and_text():
     }
 
     assert detect_signature_spell(raw) == "Jinx"
+
+
+def test_legend_allows_missing_energy_cost():
+    raw = {
+        "name": "Storm Peak",
+        "type": "LEGEND",
+        "domain": None,
+        "domains": [],
+        "cost": {"power": []},
+        "stats": {"might": None, "damage": None, "armor": None},
+        "keywords": [],
+        "tags": ["Volibear"],
+        "rules_text": "A place of power.",
+        "effects": [],
+        "flavor": None,
+        "artist": None,
+        "card_id": "TEST-LEGEND",
+    }
+
+    processed = post_process_card_data(raw)
+    card = CardData.model_validate(processed)
+
+    assert card.cost.energy is None
 
 
 def test_clean_filename_sanitizes_and_collapses_whitespace():
