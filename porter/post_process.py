@@ -232,11 +232,17 @@ def _apply_domain_color_hint(
     if not color_hint or color_hint.confidence < 0.6 or not color_hint.domains:
         return processed
 
+    power_items = processed.get("cost", {}).get("power", []) or []
+    existing_domains = processed.get("domains") or []
+    if power_items or existing_domains or processed.get("domain"):
+        # When the model already provided power icons or domain info, treat the
+        # color hint as advisory and leave the structured data untouched.
+        return processed
+
     inferred = _canonicalize_terms(color_hint.domains, DOMAIN_SYNONYMS)
     if not inferred:
         return processed
 
-    power_items = processed.get("cost", {}).get("power", []) or []
     power_domains = [
         item.get("domain") for item in power_items if isinstance(item, dict) and item.get("domain")
     ]
